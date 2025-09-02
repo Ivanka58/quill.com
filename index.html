@@ -88,6 +88,8 @@
             flex-grow: 1;
             padding: 10px;
             overflow-y: auto;
+            display: flex;
+            flex-direction: column; /* Сообщения располагаются вертикально */
         }
 
         /* Стили для сообщений */
@@ -95,13 +97,15 @@
             padding: 8px 12px;
             border-radius: 10px;
             margin-bottom: 5px;
+            display: inline-block; /* Сообщения занимают только необходимую ширину */
+
+            max-width: 80%; /* Максимальная ширина сообщения (чтобы длинные сообщения переносились) */
             word-break: break-word; /* Перенос длинных слов */
         }
 
         .my-message {
             background-color: orange;
             color: black;
-
             align-self: flex-end; /* Выравнивание справа */
             text-align: right; /* Текст справа */
             position: relative; /* Для позиционирования галочек */
@@ -112,6 +116,12 @@
             color: white;
             align-self: flex-start; /* Выравнивание слева */
             text-align: left; /* Текст слева */
+        }
+
+        /* Сдвигаем текст влево */
+        .my-message, .their-message {
+            margin-left: 20px;
+            margin-right: 20px;
         }
 
         /* Стили для галочек */
@@ -127,8 +137,8 @@
             padding: 10px;
             border-top: 1px solid #333;
             display: flex;
-            align-items: center; /* Выравниваем по вертикали */
-            padding-bottom: env(safe-area-inset-bottom); /* Учитываем высоту панели навигации на iOS */
+            align-items: center;
+            padding-bottom: max(10px, env(safe-area-inset-bottom)); /* Безопасный отступ и минимальный отступ 10px */
         }
 
         .input-field {
@@ -243,7 +253,8 @@
 <div class="chat-page">
     <button class="back-button" onclick="goBack()">Назад</button>
     <div class="chat-header">
-        <h2>Я <span class="verified">✓</span></h2>
+
+<h2>Я <span class="verified">✓</span></h2>
     </div>
     <div class="messages">
         <!-- Здесь будут отображаться сообщения -->
@@ -255,8 +266,7 @@
 </div>
 
 <script>
-
-const chatList = document.querySelector('.container');
+    const chatList = document.querySelector('.container');
     const chatPage = document.querySelector('.chat-page');
     const addChatButton = document.querySelector('.add-chat-button');
     const inputField = document.querySelector('.input-field');
