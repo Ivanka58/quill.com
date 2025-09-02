@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Мессенджер</title>
+<style>
+  body {
+    margin: 0;
+    background-color: black;
+    color: white;
+    font-family: sans-serif;
+    overflow: hidden; /* Убираем полосы прокрутки */
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Высота на весь экран */
+    width: 100vw; /* Ширина на весь экран */
+  }
+
+  .header {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #333;
+  }
+
+  .chat-list {
+    flex-grow: 1; /* Растягиваем список чатов на доступное пространство */
+    padding: 10px;
+  }
+
+  .chat-item {
+    padding: 10px;
+    border-bottom: 1px solid #333;
+    cursor: pointer;
+    display: flex; /* Для выравнивания галочки */
+    align-items: center; /* Выравниваем по вертикали */
+  }
+
+  .chat-item:hover {
+    background-color: #111;
+  }
+
+  .chat-name {
+    margin-right: 5px; /* Отступ между именем и галочкой */
+  }
+
+  .verified {
+    color: lightskyblue;
+    font-size: 16px; /* Размер галочки */
+  }
+
+  .add-chat-button {
+    padding: 10px 20px;
+    background-color: lightskyblue;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    align-self: center; /* Выравниваем по центру по горизонтали */
+    margin-top: 20px; /* Отступ от списка чатов */
+  }
+
+  .add-chat-button:hover {
+    background-color: skyblue;
+  }
+
+  /* Убираем выделение при клике (чтобы не было синей обводки) */
+  *:focus {
+    outline: none;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h2>Все чаты</h2>
+  </div>
+
+  <div class="chat-list">
+    <div class="chat-item">
+      <span class="chat-name">Я</span>
+      <span class="verified">✓</span>
+    </div>
+  </div>
+
+  <button class="add-chat-button">Добавить чат</button>
+</div>
+
+<script>
+  // Здесь можно добавить логику для кнопки "Добавить чат"
+  // Например, показать модальное окно для создания нового чата
+  const addChatButton = document.querySelector('.add-chat-button');
+  addChatButton.addEventListener('click', () => {
+    alert('Здесь будет логика добавления чата!'); // Заглушка
+  });
+</script>
+
+</body>
+</html>
