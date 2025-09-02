@@ -9,8 +9,8 @@
       background-color: black;
       color: white;
       font-family: sans-serif;
-      overflow: hidden; /* Убираем полосы прокрутки */
-      height: 100vh; /* Высота на весь экран */
+      overflow: hidden;
+      height: 100vh;
     }
 
     .container {
@@ -69,11 +69,11 @@
 
     /* Стили для страницы чата */
     .chat-page {
-      display: none; /* Скрываем страницу чата по умолчанию */
+      display: none;
       flex-direction: column;
       height: 100%;
       background-color: black;
-      background-image: url('https://i.postimg.cc/y36b5Vth/82018-dark-star-stars-sky-night-space-1920x1080.jpg'); /* Заменили ссылку */
+      background-image: url('https://i.postimg.cc/y36b5Vth/82018-dark-star-stars-sky-night-space-1920x1080.jpg');
       background-size: cover;
       background-position: center;
     }
@@ -87,13 +87,48 @@
     .messages {
       flex-grow: 1;
       padding: 10px;
-      overflow-y: auto; /* Добавляем прокрутку, если сообщений много */
+      overflow-y: auto;
+    }
+
+    /* Стили для сообщений */
+    .message {
+      padding: 8px 12px;
+      border-radius: 10px;
+      margin-bottom: 5px;
+      word-break: break-word; /* Перенос длинных слов */
+    }
+
+    .my-message {
+      background-color: orange;
+      color: black;
+      align-self: flex-end; /* Выравнивание справа */
+      text-align: right; /* Текст справа */
+      position: relative; /* Для позиционирования галочек */
+    }
+
+    .their-message {
+      background-color: #222;
+      color: white;
+      align-self: flex-start; /* Выравнивание слева */
+      text-align: left; /* Текст слева */
+    }
+
+    /* Стили для галочек */
+    .checkmark {
+      position: absolute;
+      bottom: 3px;
+      right: 5px;
+      font-size: 0.8em;
+
+      color: white;
     }
 
     .input-area {
       padding: 10px;
       border-top: 1px solid #333;
       display: flex;
+      align-items: center; /* Выравниваем по вертикали */
+      margin-bottom: env(safe-area-inset-bottom); /* Учитываем высоту панели навигации на iOS */
     }
 
     .input-field {
@@ -119,7 +154,6 @@
       position: absolute;
       top: 10px;
       left: 10px;
-
       background-color: rgba(0, 0, 0, 0.5);
       color: white;
       border: none;
@@ -250,11 +284,36 @@
   sendButton.addEventListener('click', () => {
     const messageText = inputField.value;
     if (messageText.trim() !== '') {
+      // Создаем элемент сообщения
       const messageElement = document.createElement('div');
+      messag
+
+eElement.classList.add('message', 'my-message'); // Добавляем классы
       messageElement.textContent = messageText;
+
+      // Добавляем галочки
+      const checkmarkElement = document.createElement('span');
+      checkmarkElement.classList.add('checkmark');
+      checkmarkElement.textContent = '✓✓'; // Две галочки
+      messageElement.appendChild(checkmarkElement);
+
+      // Добавляем сообщение в чат
       messages.appendChild(messageElement);
-      inputField.value = ''; // Очищаем поле ввода
-      messages.scrollTop = messages.scrollHeight; // Прокручиваем к последнему сообщению
+
+      // Очищаем поле ввода
+      inputField.value = '';
+
+      // Прокручиваем к последнему сообщению
+      messages.scrollTop = messages.scrollHeight;
+
+      // Отправляем "Привет!" от другого пользователя
+      setTimeout(() => {
+        const theirMessageElement = document.createElement('div');
+        theirMessageElement.classList.add('message', 'their-message');
+        theirMessageElement.textContent = 'Привет!';
+        messages.appendChild(theirMessageElement);
+        messages.scrollTop = messages.scrollHeight;
+      }, 500); // Задержка 0.5 секунды
     }
   });
 </script>
