@@ -172,61 +172,6 @@
             cursor: pointer;
         }
 
-        /* Media Queries для адаптации под мобильные устройства */
-        @media (max-width: 768px) {
-            .header {
-                font-size: 1.2em;
-                padding: 8px;
-            }
-
-            .chat-list {
-                padding: 5px;
-            }
-
-            .chat-item {
-                padding: 8px;
-                font-size: 1em;
-            }
-
-            .add-chat-button {
-                padding: 8px 16px;
-                font-size: 0.9em;
-            }
-
-            .chat-header {
-                font-size: 1.2em;
-                padding: 8px;
-            }
-
-            .input-area {
-                padding: 5px;
-            }
-
-            .input-field {
-                padding: 6px;
-                font-size: 0.9em;
-            }
-
-            .send-button {
-                padding: 6px 12px;
-                font-size: 0.9em;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .header h2 {
-                font-size: 1em;
-            }
-
-            .chat-item {
-                font-size: 0.9em;
-            }
-
-            .chat-header h2 {
-                font-size: 1em;
-            }
-        }
-
         /* Стили для страниц входа */
         .phone-login-page, .code-verification-page {
             display: none; /* Скрываем по умолчанию */
@@ -249,161 +194,7 @@
             max-width: 300px;
         }
 
-        .send
-
-            max-width: 80%; /* Максимальная ширина сообщения (чтобы длинные сообщения переносились) */
-            word-break: break-word; /* Перенос длинных слов */
-        }
-
-        .my-message {
-            background-color: orange;
-            color: black;
-            align-self: flex-end; /* Выравнивание справа */
-            text-align: right; /* Текст справа */
-            position: relative; /* Для позиционирования галочек */
-        }
-
-        .their-message {
-            background-color: #222;
-            color: white;
-            align-self: flex-start; /* Выравнивание слева */
-            text-align: left; /* Текст слева */
-        }
-
-        /* Сдвигаем текст влево */
-        .my-message, .their-message {
-            margin-left: 20px;
-            margin-right: 20px;
-        }
-
-        /* Стили для галочек */
-        .checkmark {
-            position: absolute;
-            bottom: 3px;
-            right: 5px;
-            font-size: 0.8em;
-            color: white;
-        }
-
-        .input-area {
-            padding: 10px;
-            border-top: 1px solid #333;
-            display: flex;
-            align-items: center;
-            padding-bottom: max(10px, env(safe-area-inset-bottom)); /* Безопасный отступ и минимальный отступ 10px */
-        }
-
-        .input-field {
-            flex-grow: 1;
-            padding: 8px;
-            border: 1px solid #555;
-            background-color: #222;
-            color: white;
-            border-radius: 5px;
-        }
-
-        .send-button {
-            padding: 8px 15px;
-            background-color: lightskyblue;
-            color: black;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-left: 10px;
-        }
-
-        .back-button {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background-color: rgba(0, 0, 0, 0.5);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-
-        /* Media Queries для адаптации под мобильные устройства */
-        @media (max-width: 768px) {
-            .header {
-                font-size: 1.2em;
-                padding: 8px;
-            }
-
-            .chat-list {
-                padding: 5px;
-            }
-
-            .chat-item {
-                padding: 8px;
-                font-size: 1em;
-            }
-
-            .add-chat-button {
-                padding: 8px 16px;
-                font-size: 0.9em;
-            }
-
-            .chat-header {
-                font-size: 1.2em;
-                padding: 8px;
-            }
-
-            .input-area {
-                padding: 5px;
-            }
-
-            .input-field {
-                padding: 6px;
-                font-size: 0.9em;
-            }
-
-            .send-button {
-                padding: 6px 12px;
-                font-size: 0.9em;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .header h2 {
-                font-size: 1em;
-            }
-
-            .chat-item {
-                font-size: 0.9em;
-            }
-
-            .chat-header h2 {
-                font-size: 1em;
-            }
-        }
-
-        /* Стили для страниц входа */
-        .phone-login-page, .code-verification-page {
-            display: none; /* Скрываем по умолчанию */
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            background-color: black;
-            color: white;
-        }
-
-        .phone-input, .code-input {
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #555;
-            background-color: #222;
-            color: white;
-            border-radius: 5px;
-            width: 80%;
-            max-width: 300px;
-        }
-
-        .send-code-butt
-
-on, .verify-code-button {
+        .send-code-button, .verify-code-button {
             padding: 10px 20px;
             background-color: lightskyblue;
             color: black;
@@ -412,6 +203,16 @@ on, .verify-code-button {
             cursor: pointer;
         }
 
+        /* Скрываем список чатов и кнопку "Добавить чат" после входа */
+        .container.logged-in .chat-list,
+        .container.logged-in .add-chat-button,
+        .header {
+            display: none;
+        }
+
+        .container.logged-in .header {
+            display: none;
+        }
 
         *:focus {
             outline: none;
@@ -438,7 +239,9 @@ on, .verify-code-button {
 <!-- Страница чата (скрыта по умолчанию) -->
 <div class="chat-page">
     <button class="back-button" onclick="goBack()">Назад</button>
-    <div class="chat-header">
+    <div class="chat-head
+
+er">
         <h2>Я <span class="verified">✓</span></h2>
     </div>
     <div class="messages">
@@ -454,14 +257,14 @@ on, .verify-code-button {
 <div class="phone-login-page">
     <h2>Вход по номеру телефона</h2>
     <input type="tel" class="phone-input" placeholder="Введите номер телефона">
-    <button class="send-code-button">Отправить код</button>
+    <button class="send-code-button" onclick="showCodeVerificationPage()">Отправить код</button>
 </div>
 
 <!-- Форма ввода кода подтверждения (скрыта по умолчанию) -->
 <div class="code-verification-page">
     <h2>Подтверждение номера телефона</h2>
     <input type="number" class="code-input" placeholder="Введите код подтверждения">
-    <button class="verify-code-button">Подтвердить</button>
+    <button class="verify-code-button" onclick="verifyCode()">Подтвердить</button>
 </div>
 
 <script>
@@ -480,14 +283,20 @@ on, .verify-code-button {
     const codeInput = document.querySelector('.code-input');
     const verifyCodeButton = document.querySelector('.verify-code-button');
 
+    let isLoggedIn = false; // Флаг, показывающий, вошел ли пользователь
+
     function openChat() {
-        chatList.style.display = 'none';
         chatPage.style.display = 'flex';
+        container.style.display = 'none';
     }
 
     function goBack() {
-        chatList.style.display = 'flex';
         chatPage.style.display = 'none';
+        if (isLoggedIn) {
+            container.style.display = 'none';  // Если вошли через телефон, остаемся на странице входа
+        } else {
+            container.style.display = 'flex';   // Иначе - возвращаемся к списку чатов
+        }
     }
 
     addChatButton.addEventListener('click', () => {
@@ -510,8 +319,7 @@ on, .verify-code-button {
             // Добавляем галочки
             const checkmarkElement = document.createElement('span');
             checkmarkElement.classList.add('checkmark');
-
-checkmarkElement.textContent = '✓✓'; // Две галочки
+            checkmarkElement.textContent = '✓✓'; // Две галочки
             messageElement.appendChild(checkmarkElement);
 
             // Добавляем сообщение в чат
@@ -525,7 +333,9 @@ checkmarkElement.textContent = '✓✓'; // Две галочки
 
             // Отправляем "Привет!" от другого пользователя
             setTimeout(() => {
-                const theirMessageElement = document.createElement('div');
+                const theirMessageElement = document.create
+
+Element('div');
                 theirMessageElement.classList.add('message', 'their-message');
                 theirMessageElement.textContent = 'Привет!';
                 messages.appendChild(theirMessageElement);
@@ -539,39 +349,34 @@ checkmarkElement.textContent = '✓✓'; // Две галочки
         container.style.display = 'none'; // Скрываем список чатов
         chatPage.style.display = 'none';
         phoneLoginPage.style.display = 'flex';
+        codeVerificationPage.style.display = 'none'; // Скрываем страницу подтверждения
     }
 
     // Функция для отображения страницы ввода кода подтверждения
     function showCodeVerificationPage() {
-        phoneLoginPage.style.display = 'none';
-        codeVerificationPage.style.display = 'flex';
-    }
-
-    // Функция для отображения списка чатов (после успешного входа)
-    function showChatList() {
-        codeVerificationPage.style.display = 'none';
-        container.style.display = 'flex'; // Показываем список чатов
-    }
-
-    // Добавляем обработчик события для кнопки "Отправить код"
-    sendCodeButton.addEventListener('click', () => {
         const phoneNumber = phoneInput.value;
-        // Здесь должна быть логика отправки SMS (в нашем случае - имитация)
-        alert(`Отправлен код подтверждения на номер ${phoneNumber}`);
-        showCodeVerificationPage(); // Переходим на страницу ввода кода
-    });
+        if (phoneNumber.trim() !== '') {  // Проверка на пустой номер
+            alert(`Отправлен код подтверждения на номер ${phoneNumber}`);
+            phoneLoginPage.style.display = 'none';
+            codeVerificationPage.style.display = 'flex';
+        } else {
+            alert("Введите номер телефона!");
+        }
+    }
 
-    // Добавляем обработчик события для кнопки "Подтвердить"
-    verifyCodeButton.addEventListener('click', () => {
+    // Функция для подтверждения кода и отображения списка чатов
+    function verifyCode() {
         const code = codeInput.value;
-        // Здесь должна быть логика проверки кода (в нашем случае - имитация)
         if (code === '1234') { // Проверяем, что код равен "1234" (для примера)
             alert('Номер телефона подтвержден!');
-            showChatList(); // Переходим к списку чатов
+            codeVerificationPage.style.display = 'none';
+            phoneLoginPage.style.display = 'none'; // Скрываем страницу входа
+            container.classList.add('logged-in'); // Добавляем класс для скрытия элементов
+            isLoggedIn = true; // Устанавливаем флаг, что пользователь вошел
         } else {
             alert('Неверный код подтверждения');
         }
-    });
+    }
 
     // Вызываем функцию showPhoneLoginPage() при загрузке страницы, чтобы отобразить страницу входа
     showPhoneLoginPage();
