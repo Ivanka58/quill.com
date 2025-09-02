@@ -1,75 +1,192 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Мессенджер</title>
-<style>
-  body {
-    margin: 0;
-    background-color: black;
-    color: white;
-    font-family: sans-serif;
-    overflow: hidden; /* Убираем полосы прокрутки */
-  }
+  <title>Мессенджер</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      background-color: black;
+      color: white;
+      font-family: sans-serif;
+      overflow: hidden; /* Убираем полосы прокрутки */
+      height: 100vh; /* Высота на весь экран */
+    }
 
-  .container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh; /* Высота на весь экран */
-    width: 100vw; /* Ширина на весь экран */
-  }
+    .container {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      width: 100%;
+    }
 
-  .header {
-    padding: 10px;
-    text-align: center;
-    border-bottom: 1px solid #333;
-  }
+    .header {
+      padding: 10px;
+      text-align: center;
+      border-bottom: 1px solid #333;
+    }
 
-  .chat-list {
-    flex-grow: 1; /* Растягиваем список чатов на доступное пространство */
-    padding: 10px;
-  }
+    .chat-list {
+      flex-grow: 1;
+      padding: 10px;
+    }
 
-  .chat-item {
-    padding: 10px;
-    border-bottom: 1px solid #333;
-    cursor: pointer;
-    display: flex; /* Для выравнивания галочки */
-    align-items: center; /* Выравниваем по вертикали */
-  }
+    .chat-item {
+      padding: 10px;
+      border-bottom: 1px solid #333;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
 
-  .chat-item:hover {
-    background-color: #111;
-  }
+    .chat-item:hover {
+      background-color: #111;
+    }
 
-  .chat-name {
-    margin-right: 5px; /* Отступ между именем и галочкой */
-  }
+    .chat-name {
+      margin-right: 5px;
+    }
 
-  .verified {
-    color: lightskyblue;
-    font-size: 16px; /* Размер галочки */
-  }
+    .verified {
+      color: lightskyblue;
+      font-size: 16px;
+    }
 
-  .add-chat-button {
-    padding: 10px 20px;
-    background-color: lightskyblue;
-    color: black;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    align-self: center; /* Выравниваем по центру по горизонтали */
-    margin-top: 20px; /* Отступ от списка чатов */
-  }
+    .add-chat-button {
+      padding: 10px 20px;
+      background-color: lightskyblue;
+      color: black;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      align-self: center;
+      margin-top: 20px;
+    }
 
-  .add-chat-button:hover {
-    background-color: skyblue;
-  }
+    .add-chat-button:hover {
+      background-color: skyblue;
+    }
 
-  /* Убираем выделение при клике (чтобы не было синей обводки) */
-  *:focus {
-    outline: none;
-  }
-</style>
+    /* Стили для страницы чата */
+    .chat-page {
+      display: none; /* Скрываем страницу чата по умолчанию */
+      flex-direction: column;
+      height: 100%;
+      background-color: black;
+      background-image: url('https://i.postimg.cc/y36b5Vth/82018-dark-star-stars-sky-night-space-1920x1080.jpg'); /* Заменили ссылку */
+      background-size: cover;
+      background-position: center;
+    }
+
+    .chat-header {
+      padding: 10px;
+      text-align: center;
+      border-bottom: 1px solid #333;
+    }
+
+    .messages {
+      flex-grow: 1;
+      padding: 10px;
+      overflow-y: auto; /* Добавляем прокрутку, если сообщений много */
+    }
+
+    .input-area {
+      padding: 10px;
+      border-top: 1px solid #333;
+      display: flex;
+    }
+
+    .input-field {
+      flex-grow: 1;
+      padding: 8px;
+      border: 1px solid #555;
+      background-color: #222;
+      color: white;
+      border-radius: 5px;
+    }
+
+    .send-button {
+      padding: 8px 15px;
+      background-color: lightskyblue;
+      color: black;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+
+    .back-button {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+
+    /* Media Queries для адаптации под мобильные устройства */
+    @media (max-width: 768px) {
+      .header {
+        font-size: 1.2em;
+        padding: 8px;
+      }
+
+      .chat-list {
+        padding: 5px;
+      }
+
+      .chat-item {
+        padding: 8px;
+        font-size: 1em;
+      }
+
+      .add-chat-button {
+        padding: 8px 16px;
+        font-size: 0.9em;
+      }
+
+      .chat-header {
+        font-size: 1.2em;
+        padding: 8px;
+      }
+
+      .input-area {
+        padding: 5px;
+      }
+
+      .input-field {
+        padding: 6px;
+        font-size: 0.9em;
+      }
+
+      .send-button {
+        padding: 6px 12px;
+        font-size: 0.9em;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header h2 {
+        font-size: 1em;
+      }
+
+      .chat-item {
+        font-size: 0.9em;
+      }
+
+      .chat-header h2 {
+        font-size: 1em;
+      }
+    }
+
+    *:focus {
+      outline: none;
+    }
+  </style>
 </head>
 <body>
 
@@ -79,7 +196,7 @@
   </div>
 
   <div class="chat-list">
-    <div class="chat-item">
+    <div class="chat-item" onclick="openChat()">
       <span class="chat-name">Я</span>
       <span class="verified">✓</span>
     </div>
@@ -88,12 +205,57 @@
   <button class="add-chat-button">Добавить чат</button>
 </div>
 
+<!-- Страница чата (скрыта по умолчанию) -->
+<div class="chat-page">
+  <button class="back-button" onclick="goBack()">Назад</button>
+  <div class="chat-header">
+    <h2>Я <span class="verified">✓</span></h2>
+  </div>
+  <div class="messages">
+    <!-- Здесь будут отображаться сообщения -->
+  </div>
+  <div class="input-area">
+    <input type="text" class="input-field" placeholder="Введите сообщение...">
+    <button class="send-button">Отправить</button>
+  </div>
+</div>
+
 <script>
-  // Здесь можно добавить логику для кнопки "Добавить чат"
-  // Например, показать модальное окно для создания нового чата
+  const chatList = document.querySelector('.container');
+  const chatPage = document.querySelector('.chat-page');
   const addChatButton = document.querySelector('.add-chat-button');
+  const inputField = document.querySelector('.input-field');
+  const messages = document.querySelector('.messages');
+  const sendButton = document.querySelector('.send-button');
+
+  function openChat() {
+    chatList.style.display = 'none';
+    chatPage.style.display = 'flex';
+  }
+
+  function goBack() {
+    chatList.style.display = 'flex';
+    chatPage.style.display = 'none';
+  }
+
   addChatButton.addEventListener('click', () => {
-    alert('Здесь будет логика добавления чата!'); // Заглушка
+    alert('Здесь будет логика добавления чата!');
+  });
+
+  inputField.addEventListener('focus', () => {
+    // Здесь можно добавить логику для открытия клавиатуры
+    // (обычно это происходит автоматически на мобильных устройствах)
+  });
+
+  sendButton.addEventListener('click', () => {
+    const messageText = inputField.value;
+    if (messageText.trim() !== '') {
+      const messageElement = document.createElement('div');
+      messageElement.textContent = messageText;
+      messages.appendChild(messageElement);
+      inputField.value = ''; // Очищаем поле ввода
+      messages.scrollTop = messages.scrollHeight; // Прокручиваем к последнему сообщению
+    }
   });
 </script>
 
