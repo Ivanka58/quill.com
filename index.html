@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Quill</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <style>
         body {
             margin: 0;
@@ -12,9 +12,10 @@
             display: flex;
             flex-direction: column;
             height: 100vh;
-            overflow: hidden; /* Предотвращаем прокрутку */
+            overflow: hidden;
         }
 
+        /* Общие стили */
         .container {
             flex-grow: 1;
             display: flex;
@@ -32,6 +33,7 @@
             border-bottom: 1px solid #222;
             display: flex;
             align-items: center;
+            cursor: pointer;
         }
 
         .avatar {
@@ -51,14 +53,119 @@
             margin-left: 5px;
         }
 
+        /* Кнопка "Добавить чат" */
         .add-chat-button {
-            padding: 12px;
+            padding: 12px 20px;
             background-color: #58a6ff;
             color: white;
             border: none;
+            border-radius: 25px; /* Овальная форма */
             text-align: center;
             cursor: pointer;
-            margin-top: auto; /* Прижимаем к низу */
+            margin-top: auto;
+            align-self: center;
+            margin-bottom: 20px;
+        }
+
+        /* Chat Page Styles */
+        .chat-page {
+            display: none;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            position: relative;
+        }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #222;
+            background-color: #111;
+        }
+
+        .back-button {
+            background-color: transparent;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: 0;
+            margin-right: 15px;
+        }
+
+        .chat-title {
+            font-weight: bold;
+            flex-grow: 1;
+            display: flex;
+
+            align-items: center;
+        }
+
+        .chat-title .avatar {
+            margin-right: 10px;
+        }
+
+        .messages {
+            flex-grow: 1;
+            padding: 10px;
+            overflow-y: auto;
+        }
+
+        .message {
+            padding: 10px 15px;
+            border-radius: 15px;
+            margin-bottom: 8px;
+            word-break: break-word;
+            position: relative;
+            max-width: 75%; /* Ограничиваем ширину сообщения */
+        }
+
+        .my-message {
+            background-color: #ff9900; /* Оранжевый */
+            color: black;
+            align-self: flex-end;
+        }
+
+        .their-message {
+            background-color: #333; /* Темно-серый */
+            color: white;
+            align-self: flex-start;
+        }
+
+        .checkmark {
+            position: absolute;
+            bottom: 2px;
+            right: 5px;
+            font-size: 0.7em;
+            color: #bbb;
+        }
+
+        .input-area {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-top: 1px solid #222;
+            background-color: #111;
+        }
+
+        .input-field {
+            flex-grow: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 20px;
+            background-color: #333;
+            color: white;
+            margin-right: 10px;
+        }
+
+        .send-button {
+            padding: 10px 15px;
+            background-color: #58a6ff;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -66,7 +173,7 @@
 
     <div class="container">
         <div class="chat-list">
-            <div class="chat-item">
+            <div class="chat-item" onclick="openChat()">
                 <div class="avatar">Я</div> Избранное <span class="verified">✓</span>
             </div>
         </div>
@@ -74,5 +181,70 @@
         <button class="add-chat-button">Добавить чат</button>
     </div>
 
+    <!-- Chat Page -->
+    <div class="chat-page">
+        <div class="chat-header">
+            <button class="back-button" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <div class="chat-title">
+                <div class="avatar">Я</div> Избранное
+            </div>
+        </div>
+        <div class="messages">
+            <!-- Сообщения будут отображаться здесь -->
+        </div>
+        <div class="input-area">
+            <input type="text" class="input-field" placeholder="Введите сообщение...">
+            <button class="send-button" onclick="sendMessage()">Отправить</button>
+        </div>
+    </div>
+
+    <script>
+        const chatList = document.querySelector('.chat-list');
+        const chatPage = document.querySelector('.chat-page');
+        const addChatButton = document.querySelector('.add-chat-button');
+        const messagesContainer = document.querySelector('.messages');
+        const inputField = document.querySelector('.input-field');
+
+        function openChat() {
+            chatList.style.display = 'none';
+            addChatButton.style.display = 'none';
+            chatPage.style.display = 'flex';
+        }
+
+        function goBack() {
+            chatPage.style.display = 'none';
+            chatList.style.display = 'block';
+            addChatButton.style.display = 'block';
+        }
+
+        function sendMessage() {
+            const messageText = inputField.value.trim();
+            if (messageText) {
+                addMessage(messageText, true); // true - это твое сообщение
+                inputField.value = '';
+            }
+        }
+
+        function addMessage(text, isMyMessage) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', isMyMessage ? 'my-message' :
+
+'their-message');
+            messageDiv.textContent = text;
+
+            if (isMyMessage) {
+                const checkmarkSpan = document.createElement('span');
+                checkmarkSpan.classList.add('checkmark');
+                checkmarkSpan.innerHTML = '✓✓';
+                messageDiv.appendChild(checkmarkSpan);
+            }
+
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+    </script>
 </body>
 </html>
