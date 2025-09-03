@@ -33,7 +33,6 @@
             flex-grow: 1;
             padding: 10px;
             overflow-y: auto;
-            display: none; /* Initially hide the chat list */
         }
 
         .chat-item {
@@ -84,7 +83,6 @@
             align-self: center;
             margin: 20px auto;
             transition: background-color 0.3s ease;
-
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 
             font-size: 1em;
@@ -214,62 +212,6 @@
             background-color: rgba(0, 0, 0, 0.7);
         }
 
-        /* Auth Pages */
-        .phone-login-page, .code-verification-page {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            background: linear-gradient(to bottom, #1e1e1e, #000000);
-            color: #fff;
-        }
-
-        .phone-input, .code-input {
-            padding: 12px;
-            margin-bottom: 15
-
-px;
-            border: none;
-            background-color: #333;
-            color: #fff;
-            border-radius: 8px;
-            width: 80%;
-            max-width: 300px;
-            font-size: 1em;
-            transition: box-shadow 0.3s ease;
-        }
-
-        .phone-input:focus, .code-input:focus {
-            box-shadow: 0 0 5px #58a6ff;
-        }
-
-        .send-code-button, .verify-code-button {
-            padding: 12px 25px;
-            background-color: #58a6ff;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: background-color 0.3s ease;
-        }
-
-        .send-code-button:hover, .verify-code-button:hover {
-            background-color: #3880d9;
-        }
-
-        .container.logged-in .chat-list,
-        .container.logged-in .add-chat-button,
-        .container.logged-in .header {
-            display: block;
-        }
-
-         .container.logged-in .phone-login-page,
-        .container.logged-in .code-verification-page {
-            display: none;
-        }
-
         *:focus {
             outline: none;
         }
@@ -285,83 +227,56 @@ px;
     <div class="chat-list">
         <div class="chat-item" onclick="openChat()">
             <div class="chat-avatar">Я</div>
-            <span class="chat-name">Мои Заметки</span>
+            <span class="chat-name">Избранное</span>
             <span class="verified"><i class="fas fa-check-circle"></i></span>
         </div>
     </div>
 
-    <button class="add-chat-button"><i class="fas fa-plus"></i> Добавить Чат</button>
+    <b
+
+utton class="add-chat-button">
+        <i class="fas fa-plus"></i> Добавить Чат
+    </button>
 
     <!-- Chat Page -->
     <div class="chat-page">
-        <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i></button>
+        <button class="back-button" onclick="goBack()">
+            <i class="fas fa-arrow-left"></i>
+        </button>
         <div class="chat-header">
-            <h2>Мои Заметки <span class="verified"><i class="fas fa-check-circle"></i></span></h2>
+            <h2>Избранное <span class="verified"><i class="fas fa-check-circle"></i></span></h2>
         </div>
         <div class="messages">
             <!-- Messages will be displayed here -->
         </div>
         <div class="input-area">
             <input type="text" class="input-field" placeholder="Введите сообщение...">
-            <button class="send-button" onclick="sendMessage()"><i class="fas fa-paper-plane"></i> Отправить</button>
+            <button class="send-button" onclick="sendMessage()">
+                <i class="fas fa-paper-plane"></i> Отправить
+            </button>
         </div>
-    </div>
-
-    <!-- Phone Login Page -->
-    <div class="phone-login-page">
-        <h2>Войти по номеру телефона</h2>
-        <input type="tel" class="phone-input" placeholder="Ваш номер телефона">
-        <button class="send-code-button" onclick="showCodeVerificationPage()"><i class="fas fa-mobile-alt"></i> Отправить код</button>
-    </div>
-
-    <!-- Code Verification Page -->
-    <div class="code-verification-page">
-        <h2>Подтверждение номера</h2>
-        <input type="number" class="code-input" placeholder="Код из SMS">
-        <button class="verify-code-button" onclick="verifyCode()"><i class="fas fa-check"></i> Подтвердить</button>
     </div>
 </div>
 
 <script>
-    const container = document.querySelector('.container');
     const chatList = document.querySelector('.chat-list');
     const chatPage = document.querySelector('.chat-page');
-    const addChatButton = document.querySelector('.add-chat-button');
-    const inputField = document.querySelector('.input-field');
-    const messages = document.querySelector('.messages');
-    const sendButton = document.querySelector('.send-button');
-    const phoneLoginPage = document.querySelector('.phone-login-page');
-    const codeVerificationPage = document.querySelector('.code-verification-page');
-    const phoneInput = document.querySelector('.phone-input');
-    const sendCodeButton = document.querySelector('.send-code-button');
-    co
-
-nst codeInput = document.querySelector('.code-input');
-    const verifyCodeButton = document.querySelector('.verify-code-button');
-
-    let isLoggedIn = false;
 
     function openChat() {
+        chatList.style.display = 'none';
         chatPage.style.display = 'flex';
-        container.style.display = 'none';
     }
 
     function goBack() {
         chatPage.style.display = 'none';
-        if (isLoggedIn) {
-            container.style.display = 'flex'; // Show the chat list
-        } else {
-            container.style.display = 'flex';
-             showPhoneLoginPage();
-        }
+        chatList.style.display = 'flex';
     }
 
-    addChatButton.addEventListener('click', () => {
-        alert('Здесь будет логика добавления чата!');
-    });
-
     function sendMessage() {
+        const inputField = document.querySelector('.input-field');
+        const messages = document.querySelector('.messages');
         const messageText = inputField.value;
+
         if (messageText.trim() !== '') {
             const messageElement = document.createElement('div');
             messageElement.classList.add('message', 'my-message');
@@ -375,52 +290,8 @@ nst codeInput = document.querySelector('.code-input');
             messages.appendChild(messageElement);
             inputField.value = '';
             messages.scrollTop = messages.scrollHeight;
-
-            setTimeout(() => {
-                const theirMessageElement = document.createElement('div');
-                theirMessageElement.classList.add('message', 'their-message');
-                theirMessageElement.textContent = 'Привет!';
-                messages.appendChild(theirMessageElement);
-                messages.scrollTop = messages.scrollHeight;
-            }, 500);
         }
     }
-
-    function showPhoneLoginPage() {
-        container.style.display = 'none';
-        chatPage.style.display = 'none';
-        phoneLoginPage.style.display = 'flex';
-        codeVerificationPage.style.display = 'none';
-        container.classList.remove('logged-in');
-    }
-
-    function showCodeVerificationPage() {
-        const phoneNumber = phoneInput.value;
-        if (phoneNumber.trim() !== '') {
-            alert(`Код отправлен на ${phoneNumber}`);
-            phoneLoginPage.style.display = 'none';
-            codeVerificationPage.style.display = 'flex';
-        } else {
-            alert("Введите номер телефона!");
-        }
-    }
-
-     function verifyCode() {
-        const code = codeInput.value;
-        if (code === '1234') {
-            alert('Номер подтвержден!');
-            codeVerificationPage.style.display = 'none';
-            phoneLoginPage.style.display = 'none';
-            container.classList.add('logged-in');
-            isLoggedIn = true;
-            chatList.style.display = 'block'; // Show the chat list
-        } else {
-            alert('Неверный код.');
-        }
-    }
-
-    // Initial setup: show phone login page
-    showPhoneLoginPage();
 </script>
 
 </body>
