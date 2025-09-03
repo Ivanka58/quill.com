@@ -2,299 +2,52 @@
 <html>
 <head>
     <title>Quill</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        /* Общие стили */
         body {
             margin: 0;
-            background: linear-gradient(to bottom, #1e1e1e, #000000);
-            color: #fff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            height: 100vh; /* Занимаем всю высоту экрана */
-            overflow: hidden; /* Предотвращаем прокрутку */
-        }
-
-        .container {
+            background-color: black;
+            color: white;
+            font-family: sans-serif;
             display: flex;
             flex-direction: column;
-            height: 100%;
-            width: 100%;
-            position: relative; /* Для абсолютного позиционирования chat-page */
-        }
-
-        /* Стили для списка чатов */
-        .chat-list {
-            flex-grow: 1;
-            padding: 10px;
-            overflow-y: auto;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
         }
 
         .chat-item {
-            padding: 12px;
-            border-bottom: 1px solid #333;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            transition: background-color 0.3s ease;
-            border-radius: 5px;
+            padding: 20px;
+            border: 1px solid white;
+            margin-bottom: 20px;
         }
 
-        .chat-item:hover {
-            background-color: rgba(255, 255, 255, 0.05);
-        }
-
-        .chat-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: #555;
-            margin-right: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2em;
-            color: #fff;
-        }
-
-        .chat-name {
-            margin-right: 5px;
-            font-weight: bold;
-            color: #eee;
-        }
-
-        .verified {
-            color: lightskyblue;
-            font-size: 16px;
-        }
-
-        /* Кнопка "Добавить чат" */
         .add-chat-button {
-            padding: 12px 25px;
-            background-color: #58a6ff;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            align-self: center;
-            margin: 20px auto;
-            transition: background-color 0.3s ease;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-
-            font-size: 1em;
-            display: block;
-            z-index: 2; /* Над чатом */
-        }
-
-        .add-chat-button:hover {
-            background-color: #3880d9;
-        }
-
-        /* Chat Page Styles */
-        .chat-page {
-            display: none;
-            flex-direction: column;
-            height: 100%;
-            width: 100%;
-            background-color: #121212;
-            background-image: url('https://i.postimg.cc/y36b5Vth/82018-dark-star-stars-sky-night-space-1920x1080.jpg');
-            background-size: cover;
-            background-position: center;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 1; /* Под кнопкой "Добавить чат" */
-        }
-
-        .chat-header {
-            padding: 15px;
-            text-align: center;
-            border-bottom: 1px solid #333;
-            background-color: rgba(0, 0, 0, 0.5);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            position: relative;
-        }
-
-        .messages {
-            flex-grow: 1;
-            padding: 10px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .message {
-            padding: 10px 15px;
-            border-radius: 15px;
-            margin-bottom: 10px;
-            display: inline-block;
-            max-width: 80%;
-            word-break: break-word;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-        }
-
-        .my-message {
-            background-color: #007bff;
-            color: #fff;
-            align-self: flex-end;
-            text-align: right;
-            position: relative;
-        }
-
-        .their-message {
-            background-color: #444;
-            color: #fff;
-            align-self: flex-start;
-            text-align: left;
-        }
-
-        .checkmark {
-            position: absolute;
-            bottom: 5px;
-            right: 10px;
-            font-size: 0.8em;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .input-area {
-            padding: 10px;
-            border-top: 1px solid #333;
-            display: flex;
-            align-items: center;
-            background-color: rgba(0, 0, 0, 0.5);
-            padding-bottom: max(10px, env(safe-area-inset-bottom));
-            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
-        }
-
-        .input-field {
-            flex-grow: 1;
-            padding: 10px;
-            border: none;
-            background-color: #333;
-            color: #fff;
-            border-radius: 20px;
-            font-size: 1em;
-            margin-right: 10px;
-        }
-
-        .send-button {
             padding: 10px 20px;
-            background-color: #58a6ff;
-            color: #fff;
+            background-color: gray;
+            color: white;
             border: none;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            font-size: 1em;
         }
 
-        .send-button:hover {
-            background-color: #3880d9;
-        }
-
-        .back-button {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background-color: rgba(0, 0, 0, 0.5);
-            color: #fff;
-            border: none;
+        .avatar {
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
-            width: 35px;
-            height: 35px;
-            display: flex;
+            background-color: white;
+            color: black;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            font-size: 1.2em;
-            transition: background-color 0.3s ease;
-            z-index: 3; /* Чтобы кнопка была видна поверх всего */
-        }
-
-        .back-button:hover {
-            background-color: rgba(0, 0, 0, 0.7);
-        }
-
-        *:focus {
-            outline: none;
+            margin-right: 10px;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="chat-list">
-        <div class="chat-item" onclick="openChat()">
-            <div class="chat-avat
-
-ar">Я</div>
-            <span class="chat-name">Избранное</span>
-            <span class="verified"><i class="fas fa-check-circle"></i></span>
-        </div>
+    <div class="chat-item">
+        <div class="avatar">Я</div> Избранное
     </div>
 
-    <button class="add-chat-button">
-        <i class="fas fa-plus"></i> Добавить Чат
-    </button>
-
-    <!-- Chat Page -->
-    <div class="chat-page">
-        <button class="back-button" onclick="goBack()">
-            <i class="fas fa-arrow-left"></i>
-        </button>
-        <div class="chat-header">
-            <h2>Избранное <span class="verified"><i class="fas fa-check-circle"></i></span></h2>
-        </div>
-        <div class="messages">
-            <!-- Messages will be displayed here -->
-        </div>
-        <div class="input-area">
-            <input type="text" class="input-field" placeholder="Введите сообщение...">
-            <button class="send-button" onclick="sendMessage()">
-                <i class="fas fa-paper-plane"></i> Отправить
-            </button>
-        </div>
-    </div>
-</div>
-
-<script>
-    const chatList = document.querySelector('.chat-list');
-    const chatPage = document.querySelector('.chat-page');
-    const addChatButton = document.querySelector('.add-chat-button');
-
-    function openChat() {
-        chatList.style.display = 'none';
-        addChatButton.style.display = 'none';
-        chatPage.style.display = 'flex';
-    }
-
-    function goBack() {
-        chatPage.style.display = 'none';
-        chatList.style.display = 'block'; // Возвращаем список чатов
-        addChatButton.style.display = 'block'; // Возвращаем кнопку "Добавить чат"
-    }
-
-    function sendMessage() {
-        const inputField = document.querySelector('.input-field');
-        const messages = document.querySelector('.messages');
-        const messageText = inputField.value;
-
-        if (messageText.trim() !== '') {
-            const messageElement = document.createElement('div');
-            messageElement.classList.add('message', 'my-message');
-            messageElement.textContent = messageText;
-
-            const checkmarkElement = document.createElement('span');
-            checkmarkElement.classList.add('checkmark');
-            checkmarkElement.innerHTML = '<i class="fas fa-check-double"></i>';
-            messageElement.appendChild(checkmarkElement);
-
-            messages.appendChild(messageElement);
-            inputField.value = '';
-            messages.scrollTop = messages.scrollHeight;
-        }
-    }
-</script>
+    <button class="add-chat-button">Добавить чат</button>
 
 </body>
 </html>
