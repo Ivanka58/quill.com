@@ -1,3 +1,4 @@
+ChatGPT4 | Midjourney:
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,6 +34,7 @@
             flex-grow: 1;
             padding: 10px;
             overflow-y: auto;
+            display: none; /* Initially hide the chat list */
         }
 
         .chat-item {
@@ -83,6 +85,7 @@
             align-self: center;
             margin: 20px auto;
             transition: background-color 0.3s ease;
+
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 
             font-size: 1em;
@@ -225,11 +228,11 @@
 
         .phone-input, .code-input {
             padding: 12px;
-            margin-bottom: 15px;
-            border: none;
-            background-color
+            margin-bottom: 15
 
-: #333;
+px;
+            border: none;
+            background-color: #333;
             color: #fff;
             border-radius: 8px;
             width: 80%;
@@ -332,9 +335,9 @@
     const codeVerificationPage = document.querySelector('.code-verification-page');
     const phoneInput = document.querySelector('.phone-input');
     const sendCodeButton = document.querySelector('.send-code-button');
-    const codeInput = document.querySelector('.code-input')
+    co
 
-;
+nst codeInput = document.querySelector('.code-input');
     const verifyCodeButton = document.querySelector('.verify-code-button');
 
     let isLoggedIn = false;
@@ -411,17 +414,15 @@
             phoneLoginPage.style.display = 'none';
             container.classList.add('logged-in');
             isLoggedIn = true;
-             container.style.display = 'flex';
-
+            chatList.style.display = 'block'; // Show the chat list
         } else {
             alert('Неверный код.');
         }
     }
 
-
     // Initial setup: show phone login page
-     showPhoneLoginPage();
+    showPhoneLoginPage();
 </script>
 
 </body>
-    </html>
+</html>
