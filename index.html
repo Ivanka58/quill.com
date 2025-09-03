@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
+        /* Общие стили */
         body {
             margin: 0;
             background: linear-gradient(to bottom, #1e1e1e, #000000);
             color: #fff;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            /*overflow: hidden;  Убрал overflow: hidden, чтобы избежать проблем с прокруткой */
-            height: 100vh; /* Задаем высоту viewport, но не ограничиваем overflow */
+            height: 100vh; /* Занимаем всю высоту экрана */
+            overflow: hidden; /* Предотвращаем прокрутку */
         }
 
         .container {
@@ -19,17 +20,10 @@
             flex-direction: column;
             height: 100%;
             width: 100%;
+            position: relative; /* Для абсолютного позиционирования chat-page */
         }
 
-        /* Убираем заголовок Quill */
-        /* .header {
-            padding: 15px;
-            text-align: center;
-            border-bottom: 1px solid #333;
-            background-color: rgba(0, 0, 0, 0.3);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        } */
-
+        /* Стили для списка чатов */
         .chat-list {
             flex-grow: 1;
             padding: 10px;
@@ -74,6 +68,7 @@
             font-size: 16px;
         }
 
+        /* Кнопка "Добавить чат" */
         .add-chat-button {
             padding: 12px 25px;
             background-color: #58a6ff;
@@ -81,15 +76,14 @@
             border: none;
             border-radius: 8px;
             cursor: pointer;
-
             align-self: center;
             margin: 20px auto;
             transition: background-color 0.3s ease;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+
             font-size: 1em;
             display: block;
-            /*position: relative; Добавил relative чтобы корректно работал z-index*/
-            z-index: 1; /* Устанавливаем z-index больше, чем у chat-page */
+            z-index: 2; /* Над чатом */
         }
 
         .add-chat-button:hover {
@@ -101,15 +95,15 @@
             display: none;
             flex-direction: column;
             height: 100%;
+            width: 100%;
             background-color: #121212;
             background-image: url('https://i.postimg.cc/y36b5Vth/82018-dark-star-stars-sky-night-space-1920x1080.jpg');
             background-size: cover;
             background-position: center;
-            position: absolute; /* Абсолютное позиционирование */
+            position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            z-index: 0; /* Устанавливаем z-index чтобы скрыть под add-chat-button */
+            z-index: 1; /* Под кнопкой "Добавить чат" */
         }
 
         .chat-header {
@@ -214,12 +208,11 @@
             cursor: pointer;
             font-size: 1.2em;
             transition: background-color 0.3s ease;
+            z-index: 3; /* Чтобы кнопка была видна поверх всего */
         }
 
         .back-button:hover {
-            bac
-
-kground-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.7);
         }
 
         *:focus {
@@ -230,14 +223,11 @@ kground-color: rgba(0, 0, 0, 0.7);
 <body>
 
 <div class="container">
-    <!-- Убрали заголовок -->
-    <!--<div class="header">
-        <h2>Quill</h2>
-    </div>-->
-
     <div class="chat-list">
         <div class="chat-item" onclick="openChat()">
-            <div class="chat-avatar">Я</div>
+            <div class="chat-avat
+
+ar">Я</div>
             <span class="chat-name">Избранное</span>
             <span class="verified"><i class="fas fa-check-circle"></i></span>
         </div>
@@ -274,14 +264,14 @@ kground-color: rgba(0, 0, 0, 0.7);
 
     function openChat() {
         chatList.style.display = 'none';
-        addChatButton.style.display = 'none'; /* Скрываем кнопку "Добавить чат" */
+        addChatButton.style.display = 'none';
         chatPage.style.display = 'flex';
     }
 
     function goBack() {
         chatPage.style.display = 'none';
-        chatList.style.display = 'block';
-        addChatButton.style.display = 'block'; /* Показываем кнопку "Добавить чат" */
+        chatList.style.display = 'block'; // Возвращаем список чатов
+        addChatButton.style.display = 'block'; // Возвращаем кнопку "Добавить чат"
     }
 
     function sendMessage() {
@@ -307,4 +297,4 @@ kground-color: rgba(0, 0, 0, 0.7);
 </script>
 
 </body>
-    </html>
+</html>
