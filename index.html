@@ -10,8 +10,8 @@
             background: linear-gradient(to bottom, #1e1e1e, #000000);
             color: #fff;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow: hidden;
-            height: 100vh;
+            /*overflow: hidden;  Убрал overflow: hidden, чтобы избежать проблем с прокруткой */
+            height: 100vh; /* Задаем высоту viewport, но не ограничиваем overflow */
         }
 
         .container {
@@ -81,13 +81,15 @@
             border: none;
             border-radius: 8px;
             cursor: pointer;
+
             align-self: center;
             margin: 20px auto;
             transition: background-color 0.3s ease;
-
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
             font-size: 1em;
             display: block;
+            /*position: relative; Добавил relative чтобы корректно работал z-index*/
+            z-index: 1; /* Устанавливаем z-index больше, чем у chat-page */
         }
 
         .add-chat-button:hover {
@@ -103,6 +105,11 @@
             background-image: url('https://i.postimg.cc/y36b5Vth/82018-dark-star-stars-sky-night-space-1920x1080.jpg');
             background-size: cover;
             background-position: center;
+            position: absolute; /* Абсолютное позиционирование */
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 0; /* Устанавливаем z-index чтобы скрыть под add-chat-button */
         }
 
         .chat-header {
@@ -210,7 +217,9 @@
         }
 
         .back-button:hover {
-            background-color: rgba(0, 0, 0, 0.7);
+            bac
+
+kground-color: rgba(0, 0, 0, 0.7);
         }
 
         *:focus {
@@ -221,7 +230,7 @@
 <body>
 
 <div class="container">
-     <!-- Убрали заголовок -->
+    <!-- Убрали заголовок -->
     <!--<div class="header">
         <h2>Quill</h2>
     </div>-->
@@ -230,9 +239,7 @@
         <div class="chat-item" onclick="openChat()">
             <div class="chat-avatar">Я</div>
             <span class="chat-name">Избранное</span>
-            <span
-
-class="verified"><i class="fas fa-check-circle"></i></span>
+            <span class="verified"><i class="fas fa-check-circle"></i></span>
         </div>
     </div>
 
@@ -263,15 +270,18 @@ class="verified"><i class="fas fa-check-circle"></i></span>
 <script>
     const chatList = document.querySelector('.chat-list');
     const chatPage = document.querySelector('.chat-page');
+    const addChatButton = document.querySelector('.add-chat-button');
 
     function openChat() {
         chatList.style.display = 'none';
+        addChatButton.style.display = 'none'; /* Скрываем кнопку "Добавить чат" */
         chatPage.style.display = 'flex';
     }
 
     function goBack() {
         chatPage.style.display = 'none';
-        chatList.style.display = 'flex';
+        chatList.style.display = 'block';
+        addChatButton.style.display = 'block'; /* Показываем кнопку "Добавить чат" */
     }
 
     function sendMessage() {
@@ -297,4 +307,4 @@ class="verified"><i class="fas fa-check-circle"></i></span>
 </script>
 
 </body>
-</html>
+    </html>
