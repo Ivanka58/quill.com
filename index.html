@@ -7,7 +7,7 @@
     <style>
         body {
             margin: 0;
-            background: linear-gradient(to bottom, #1e1e1e, #000000); /* Dark gradient background */
+            background: linear-gradient(to bottom, #1e1e1e, #000000);
             color: #fff;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow: hidden;
@@ -75,7 +75,7 @@
 
         .add-chat-button {
             padding: 12px 25px;
-            background-color: #58a6ff; /* Telegram blue */
+            background-color: #58a6ff;
             color: #fff;
             border: none;
             border-radius: 8px;
@@ -83,8 +83,8 @@
             align-self: center;
             margin: 20px auto;
             transition: background-color 0.3s ease;
-
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+
             font-size: 1em;
             display: block;
         }
@@ -132,7 +132,7 @@
         }
 
         .my-message {
-            background-color: #007bff; /* Telegram blue */
+            background-color: #007bff;
             color: #fff;
             align-self: flex-end;
             text-align: right;
@@ -177,7 +177,7 @@
 
         .send-button {
             padding: 10px 20px;
-            background-color: #58a6ff; /* Telegram blue */
+            background-color: #58a6ff;
             color: #fff;
             border: none;
             border-radius: 20px;
@@ -224,12 +224,12 @@
         }
 
         .phone-input, .code-input {
-            pa
-
-dding: 12px;
+            padding: 12px;
             margin-bottom: 15px;
             border: none;
-            background-color: #333;
+            background-color
+
+: #333;
             color: #fff;
             border-radius: 8px;
             width: 80%;
@@ -244,7 +244,7 @@ dding: 12px;
 
         .send-code-button, .verify-code-button {
             padding: 12px 25px;
-            background-color: #58a6ff; /* Telegram blue */
+            background-color: #58a6ff;
             color: #fff;
             border: none;
             border-radius: 8px;
@@ -259,13 +259,13 @@ dding: 12px;
 
         .container.logged-in .chat-list,
         .container.logged-in .add-chat-button,
-        .header {
-            display: block; /* Show these elements when logged in */
+        .container.logged-in .header {
+            display: block;
         }
 
-        .container.logged-in .phone-login-page,
+         .container.logged-in .phone-login-page,
         .container.logged-in .code-verification-page {
-            display: none; /* Hide auth pages when logged in */
+            display: none;
         }
 
         *:focus {
@@ -301,7 +301,7 @@ dding: 12px;
         </div>
         <div class="input-area">
             <input type="text" class="input-field" placeholder="Введите сообщение...">
-            <button class="send-button"><i class="fas fa-paper-plane"></i> Отправить</button>
+            <button class="send-button" onclick="sendMessage()"><i class="fas fa-paper-plane"></i> Отправить</button>
         </div>
     </div>
 
@@ -309,14 +309,14 @@ dding: 12px;
     <div class="phone-login-page">
         <h2>Войти по номеру телефона</h2>
         <input type="tel" class="phone-input" placeholder="Ваш номер телефона">
-        <button class="send-code-button"><i class="fas fa-mobile-alt"></i> Отправить код</button>
+        <button class="send-code-button" onclick="showCodeVerificationPage()"><i class="fas fa-mobile-alt"></i> Отправить код</button>
     </div>
 
     <!-- Code Verification Page -->
     <div class="code-verification-page">
         <h2>Подтверждение номера</h2>
         <input type="number" class="code-input" placeholder="Код из SMS">
-        <button class="verify-code-button"><i class="fas fa-check"></i> Подтвердить</button>
+        <button class="verify-code-button" onclick="verifyCode()"><i class="fas fa-check"></i> Подтвердить</button>
     </div>
 </div>
 
@@ -331,10 +331,10 @@ dding: 12px;
     const phoneLoginPage = document.querySelector('.phone-login-page');
     const codeVerificationPage = document.querySelector('.code-verification-page');
     const phoneInput = document.querySelector('.phone-input');
-    const sendCodeButton = document.querySelector('.
+    const sendCodeButton = document.querySelector('.send-code-button');
+    const codeInput = document.querySelector('.code-input')
 
-send-code-button');
-    const codeInput = document.querySelector('.code-input');
+;
     const verifyCodeButton = document.querySelector('.verify-code-button');
 
     let isLoggedIn = false;
@@ -347,23 +347,15 @@ send-code-button');
     function goBack() {
         chatPage.style.display = 'none';
         if (isLoggedIn) {
-            chatList.style.display = 'block';
-            container.classList.add('logged-in');
+            container.style.display = 'flex'; // Show the chat list
         } else {
             container.style.display = 'flex';
+             showPhoneLoginPage();
         }
     }
 
     addChatButton.addEventListener('click', () => {
         alert('Здесь будет логика добавления чата!');
-    });
-
-    sendButton.addEventListener('click', sendMessage);
-
-    inputField.addEventListener('keydown', function(event) {
-        if (event.key === 'Enter') {
-            sendMessage();
-        }
     });
 
     function sendMessage() {
@@ -397,6 +389,7 @@ send-code-button');
         chatPage.style.display = 'none';
         phoneLoginPage.style.display = 'flex';
         codeVerificationPage.style.display = 'none';
+        container.classList.remove('logged-in');
     }
 
     function showCodeVerificationPage() {
@@ -410,7 +403,7 @@ send-code-button');
         }
     }
 
-    function verifyCode() {
+     function verifyCode() {
         const code = codeInput.value;
         if (code === '1234') {
             alert('Номер подтвержден!');
@@ -418,23 +411,17 @@ send-code-button');
             phoneLoginPage.style.display = 'none';
             container.classList.add('logged-in');
             isLoggedIn = true;
-
-            // Show the chat list after verification
-            container.style.display = 'flex';
-            chatList.style.display = 'block';
+             container.style.display = 'flex';
 
         } else {
             alert('Неверный код.');
         }
     }
 
-    // Event Listeners
-    sendCodeButton.addEventListener('click', showCodeVerificationPage);
-    verifyCodeButton.addEventListener('click', verifyCode);
 
     // Initial setup: show phone login page
-    showPhoneLoginPage();
+     showPhoneLoginPage();
 </script>
 
 </body>
-</html>
+    </html>
