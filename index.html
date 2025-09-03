@@ -3,6 +3,7 @@
 <head>
     <title>Quill</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         body {
             margin: 0;
@@ -73,7 +74,10 @@
             flex-direction: column;
             height: 100%;
             width: 100%;
-            position: relative;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: black; /* Фон чата */
         }
 
         .chat-header {
@@ -98,7 +102,6 @@
             font-weight: bold;
             flex-grow: 1;
             display: flex;
-
             align-items: center;
         }
 
@@ -221,17 +224,22 @@
 
         function sendMessage() {
             const messageText = inputField.value.trim();
-            if (messageText) {
+            if
+
+ 
+(messageText) {
                 addMessage(messageText, true); // true - это твое сообщение
                 inputField.value = '';
+                // Автоматический ответ
+                setTimeout(() => {
+                    addMessage("Привет!", false); // false - это сообщение от собеседника
+                }, 500); // Задержка в 0.5 секунды
             }
         }
 
         function addMessage(text, isMyMessage) {
             const messageDiv = document.createElement('div');
-            messageDiv.classList.add('message', isMyMessage ? 'my-message' :
-
-'their-message');
+            messageDiv.classList.add('message', isMyMessage ? 'my-message' : 'their-message');
             messageDiv.textContent = text;
 
             if (isMyMessage) {
