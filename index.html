@@ -21,13 +21,14 @@
             width: 100%;
         }
 
-        .header {
+        /* Убираем заголовок Quill */
+        /* .header {
             padding: 15px;
             text-align: center;
             border-bottom: 1px solid #333;
             background-color: rgba(0, 0, 0, 0.3);
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
+        } */
 
         .chat-list {
             flex-grow: 1;
@@ -83,8 +84,8 @@
             align-self: center;
             margin: 20px auto;
             transition: background-color 0.3s ease;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
             font-size: 1em;
             display: block;
         }
@@ -220,21 +221,22 @@
 <body>
 
 <div class="container">
-    <div class="header">
+     <!-- Убрали заголовок -->
+    <!--<div class="header">
         <h2>Quill</h2>
-    </div>
+    </div>-->
 
     <div class="chat-list">
         <div class="chat-item" onclick="openChat()">
             <div class="chat-avatar">Я</div>
             <span class="chat-name">Избранное</span>
-            <span class="verified"><i class="fas fa-check-circle"></i></span>
+            <span
+
+class="verified"><i class="fas fa-check-circle"></i></span>
         </div>
     </div>
 
-    <b
-
-utton class="add-chat-button">
+    <button class="add-chat-button">
         <i class="fas fa-plus"></i> Добавить Чат
     </button>
 
