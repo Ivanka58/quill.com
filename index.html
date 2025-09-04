@@ -170,11 +170,49 @@
             border-radius: 20px;
             cursor: pointer;
         }
+
+        /* Стили для формы авторизации */
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+        }
+
+        .auth-form input {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #333;
+            color: white;
+        }
+
+        .auth-form button {
+            padding: 10px 20px;
+            background-color: #58a6ff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <!-- Форма авторизации -->
+    <div class="auth-form">
+        <h2>Авторизация</h2>
+        <input type="tel" id="phoneNumber" placeholder="Номер телефона">
+        <input type="number" id="code" placeholder="Код подтверждения">
+        <button onclick="login()">Войти</button>
+    </div>
+
+    <!-- Контейнер для всего остального контента -->
+    <div class="container" style="display: none;">
         <div class="chat-list">
             <div class="chat-item" onclick="openChat()">
                 <div class="avatar">Я</div> Избранное <span class="verified">✓</span>
@@ -185,7 +223,7 @@
     </div>
 
     <!-- Chat Page -->
-    <div class="chat-page">
+    <div class="chat-page" style="display: none;">
         <div class="chat-header">
             <button class="back-button" onclick="goBack()">
                 <i class="fas fa-arrow-left"></i>
@@ -196,7 +234,8 @@
         </div>
         <div class="messages">
             <!-- Сообщения будут отображаться здесь -->
-        </div>
+
+</div>
         <div class="input-area">
             <input type="text" class="input-field" placeholder="Введите сообщение...">
             <button class="send-button" onclick="sendMessage()">Отправить</button>
@@ -204,11 +243,40 @@
     </div>
 
     <script>
+        const authForm = document.querySelector('.auth-form');
+        const container = document.querySelector('.container');
         const chatList = document.querySelector('.chat-list');
         const chatPage = document.querySelector('.chat-page');
         const addChatButton = document.querySelector('.add-chat-button');
         const messagesContainer = document.querySelector('.messages');
         const inputField = document.querySelector('.input-field');
+
+        let isLoggedIn = false; // Переменная для отслеживания авторизации
+
+        // Функция для проверки, авторизован ли пользователь
+        function checkLoginStatus() {
+            if (isLoggedIn) {
+                authForm.style.display = 'none';
+                container.style.display = 'flex';
+            } else {
+                authForm.style.display = 'flex';
+                container.style.display = 'none';
+                chatPage.style.display = 'none';
+            }
+        }
+
+        // Вызываем функцию при загрузке страницы
+        checkLoginStatus();
+
+        function login() {
+            const code = document.getElementById('code').value;
+            if (code === '1234') {
+                isLoggedIn = true;
+                checkLoginStatus();
+            } else {
+                alert('Неверный код!');
+            }
+        }
 
         function openChat() {
             chatList.style.display = 'none';
@@ -224,10 +292,7 @@
 
         function sendMessage() {
             const messageText = inputField.value.trim();
-            if
-
- 
-(messageText) {
+            if (messageText) {
                 addMessage(messageText, true); // true - это твое сообщение
                 inputField.value = '';
                 // Автоматический ответ
