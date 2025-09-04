@@ -20,7 +20,7 @@
 
         /* Общие стили для экранов авторизации */
         .auth-screen {
-            display: none;
+            display: flex; /* По умолчанию показываем экраны авторизации */
             flex-direction: column;
             align-items: center;
             justify-content: center;
@@ -46,6 +46,11 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+        }
+
+        /* Скрываем второй экран авторизации и контент чата по умолчанию */
+        #codeScreen, .container, .chat-page {
+            display: none;
         }
 
         /* Стили для элементов чата (скрыты до авторизации) */
@@ -78,6 +83,7 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
+
             background-color: white;
             color: black;
             display: inline-flex;
@@ -181,7 +187,7 @@
         .input-area {
             display: flex;
             align-items: center;
-            padding: 10px;
+            padding: 15px;
             border-top: 1px solid #222;
             background-color: #111;
         }
@@ -216,27 +222,26 @@
     </div>
 
     <!-- Экран ввода кода подтверждения -->
-    <div class="auth-screen" id="codeScreen" style="display: none;">
+    <div class="auth-screen" id="codeScreen">
         <h2>На ваш номер был отправлен четырехзначный код</h2>
         <input type="number" id="code" placeholder="Код подтверждения">
         <button onclick="login()">Войти</button>
     </div>
 
     <!-- Контейнер для всего остального контента (скрыт до авторизации) -->
-    <div class="container" style="display: none;">
+    <div class="container">
         <div class="chat-list">
             <div class="chat-item" onclick="openChat()">
                 <div class="avatar">Я</div> Избранное <span class="verified">✓</span>
-            </div>
+
+</div>
         </div>
 
         <button class="add-chat-button">Добавить чат</button>
     </div>
 
-    <!-- Chat Page (скрыт до авторизации
-
-и открытия чата) -->
-    <div class="chat-page" style="display: none;">
+    <!-- Chat Page (скрыт до авторизации и открытия чата) -->
+    <div class="chat-page">
         <div class="chat-header">
             <button class="back-button" onclick="goBack()">
                 <i class="fas fa-arrow-left"></i>
@@ -250,7 +255,7 @@
         </div>
         <div class="input-area">
             <input type="text" class="input-field" placeholder="Введите сообщение...">
-            <button class="send-button" onclick="sendMessage()">Отправить</button>
+            <button onclick="sendMessage()" class="send-button">Отправить</button>
         </div>
     </div>
 
@@ -262,6 +267,11 @@
         // Основной контент
         const container = document.querySelector('.container');
         const chatPage = document.querySelector('.chat-page');
+
+        // Скрываем все экраны кроме первого
+        codeScreen.style.display = 'none';
+        container.style.display = 'none';
+        chatPage.style.display = 'none';
 
         // Функция перехода к экрану ввода кода
         function goToCodeScreen() {
