@@ -59,6 +59,7 @@
             display: flex;
             flex-direction: column;
             padding: 10px;
+            width: 100%; /* Растягиваем на всю ширину */
         }
 
         .chat-list {
@@ -72,6 +73,7 @@
             display: flex;
             align-items: center;
             cursor: pointer;
+            width: 100%; /* Растягиваем на всю ширину */
         }
 
         .avatar {
@@ -80,10 +82,10 @@
             border-radius: 50%;
             background-color: white;
             color: black;
+
             display: inline-flex;
             align-items: center;
             justify-content: center;
-
             margin-right: 10px;
         }
 
@@ -107,9 +109,11 @@
 
         /* Стили для элементов чата */
         .chat-page {
+            display: flex; /* Изменено для правильного позиционирования */
             flex-direction: column;
             width: 100%;
-            position: absolute;
+            height: 100%; /* Занимаем всю высоту */
+            position: fixed; /* Фиксированное позиционирование */
             top: 0;
             left: 0;
             background-color: black;
@@ -148,6 +152,8 @@
             flex-grow: 1;
             padding: 10px;
             overflow-y: auto;
+            display: flex;
+            flex-direction: column;
         }
 
         .message {
@@ -156,19 +162,20 @@
             margin-bottom: 8px;
             word-break: break-word;
             position: relative;
-            max-width: 75%;
+            /* max-width: 75%;  Удалено, чтобы пузырьки подстраивались под текст */
+            display: inline-block; /* Чтобы ширина пузырька соответствовала контенту */
         }
 
         .my-message {
             background-color: #ff9900;
             color: black;
-            align-self: flex-end;
+            align-self: flex-end; /* Сообщения справа */
         }
 
         .their-message {
             background-color: #333;
             color: white;
-            align-self: flex-start;
+            align-self: flex-start; /* Сообщения слева */
         }
 
         .checkmark {
@@ -220,7 +227,9 @@
     <div class="auth-screen" id="codeScreen">
         <h2>На ваш номер был отправлен четырехзначный код</h2>
         <input type="number" id="code" placeholder="Код подтверждения">
-        <button onclick="login()">Войти</button>
+        <button
+
+onclick="login()">Войти</button>
     </div>
 
     <!-- Контейнер для всего остального контента (скрыт до авторизации) -->
@@ -234,9 +243,7 @@
         <button class="add-chat-button">Добавить чат</button>
     </div>
 
-    <!-- Chat Page (скрыт до авторизации и о
-
-ткрытия чата) -->
+    <!-- Chat Page (скрыт до авторизации и открытия чата) -->
     <div class="chat-page">
         <div class="chat-header">
             <button class="back-button" onclick="goBack()">
@@ -326,7 +333,8 @@
 
             messagesContainer.appendChild(messageDiv);
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        }
+
+}
     </script>
 </body>
 </html>
