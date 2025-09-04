@@ -14,9 +14,46 @@
             flex-direction: column;
             height: 100vh;
             overflow: hidden;
+            align-items: center;
+            justify-content: center;
         }
 
-        /* Общие стили */
+        /* Общие стили для экранов авторизации */
+        .auth-screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+        }
+
+        .auth-screen input {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #333;
+            color: white;
+            width: 200px;
+            text-align: center;
+        }
+
+        .auth-screen button {
+            padding: 10px 20px;
+            background-color: #58a6ff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Стили для элементов чата (скрыты до авторизации) */
+        .container, .chat-page {
+            display: none;
+        }
+
+        /* Стили для кнопки "Добавить чат" и списка чатов */
         .container {
             flex-grow: 1;
             display: flex;
@@ -54,13 +91,12 @@
             margin-left: 5px;
         }
 
-        /* Кнопка "Добавить чат" */
         .add-chat-button {
             padding: 12px 20px;
             background-color: #58a6ff;
             color: white;
             border: none;
-            border-radius: 25px; /* Овальная форма */
+            border-radius: 25px;
             text-align: center;
             cursor: pointer;
             margin-top: auto;
@@ -68,16 +104,14 @@
             margin-bottom: 20px;
         }
 
-        /* Chat Page Styles */
+        /* Стили для элементов чата */
         .chat-page {
-            display: none;
             flex-direction: column;
-            height: 100%;
             width: 100%;
             position: absolute;
             top: 0;
             left: 0;
-            background-color: black; /* Фон чата */
+            background-color: black;
         }
 
         .chat-header {
@@ -121,17 +155,17 @@
             margin-bottom: 8px;
             word-break: break-word;
             position: relative;
-            max-width: 75%; /* Ограничиваем ширину сообщения */
+            max-width: 75%;
         }
 
         .my-message {
-            background-color: #ff9900; /* Оранжевый */
+            background-color: #ff9900;
             color: black;
             align-self: flex-end;
         }
 
         .their-message {
-            background-color: #333; /* Темно-серый */
+            background-color: #333;
             color: white;
             align-self: flex-start;
         }
@@ -170,48 +204,25 @@
             border-radius: 20px;
             cursor: pointer;
         }
-
-        /* Стили для формы авторизации */
-        .auth-form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            width: 100%;
-        }
-
-        .auth-form input {
-            margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 5px;
-            border: none;
-            background-color: #333;
-            color: white;
-        }
-
-        .auth-form button {
-            padding: 10px 20px;
-            background-color: #58a6ff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
     </style>
 </head>
 <body>
 
-    <!-- Форма авторизации -->
-    <div class="auth-form">
-        <h2>Авторизация</h2>
+    <!-- Экран ввода номера телефона -->
+    <div class="auth-screen" id="phoneScreen">
+        <h2>Добро пожаловать в Quill!</h2>
         <input type="tel" id="phoneNumber" placeholder="Номер телефона">
+        <button onclick="goToCodeScreen()">Войти</button>
+    </div>
+
+    <!-- Экран ввода кода подтверждения -->
+    <div class="auth-screen" id="codeScreen" style="display: none;">
+        <h2>На ваш номер был отправлен четырехзначный код</h2>
         <input type="number" id="code" placeholder="Код подтверждения">
         <button onclick="login()">Войти</button>
     </div>
 
-    <!-- Контейнер для всего остального контента -->
+    <!-- Контейнер для всего остального контента (скрыт до авторизации) -->
     <div class="container" style="display: none;">
         <div class="chat-list">
             <div class="chat-item" onclick="openChat()">
@@ -222,7 +233,9 @@
         <button class="add-chat-button">Добавить чат</button>
     </div>
 
-    <!-- Chat Page -->
+    <!-- Chat Page (скрыт до авторизации
+
+и открытия чата) -->
     <div class="chat-page" style="display: none;">
         <div class="chat-header">
             <button class="back-button" onclick="goBack()">
@@ -234,8 +247,7 @@
         </div>
         <div class="messages">
             <!-- Сообщения будут отображаться здесь -->
-
-</div>
+        </div>
         <div class="input-area">
             <input type="text" class="input-field" placeholder="Введите сообщение...">
             <button class="send-button" onclick="sendMessage()">Отправить</button>
@@ -243,66 +255,54 @@
     </div>
 
     <script>
-        const authForm = document.querySelector('.auth-form');
+        // Экраны авторизации
+        const phoneScreen = document.getElementById('phoneScreen');
+        const codeScreen = document.getElementById('codeScreen');
+
+        // Основной контент
         const container = document.querySelector('.container');
-        const chatList = document.querySelector('.chat-list');
         const chatPage = document.querySelector('.chat-page');
-        const addChatButton = document.querySelector('.add-chat-button');
-        const messagesContainer = document.querySelector('.messages');
-        const inputField = document.querySelector('.input-field');
 
-        let isLoggedIn = false; // Переменная для отслеживания авторизации
-
-        // Функция для проверки, авторизован ли пользователь
-        function checkLoginStatus() {
-            if (isLoggedIn) {
-                authForm.style.display = 'none';
-                container.style.display = 'flex';
-            } else {
-                authForm.style.display = 'flex';
-                container.style.display = 'none';
-                chatPage.style.display = 'none';
-            }
+        // Функция перехода к экрану ввода кода
+        function goToCodeScreen() {
+            phoneScreen.style.display = 'none';
+            codeScreen.style.display = 'flex';
         }
 
-        // Вызываем функцию при загрузке страницы
-        checkLoginStatus();
-
+        // Функция авторизации (проверка кода)
         function login() {
             const code = document.getElementById('code').value;
             if (code === '1234') {
-                isLoggedIn = true;
-                checkLoginStatus();
+                codeScreen.style.display = 'none';
+                container.style.display = 'flex';
             } else {
                 alert('Неверный код!');
             }
         }
 
+        // Функции для работы с чатом (как и раньше)
         function openChat() {
-            chatList.style.display = 'none';
-            addChatButton.style.display = 'none';
+            container.style.display = 'none';
             chatPage.style.display = 'flex';
         }
 
         function goBack() {
             chatPage.style.display = 'none';
-            chatList.style.display = 'block';
-            addChatButton.style.display = 'block';
+            container.style.display = 'flex';
         }
 
         function sendMessage() {
+            const inputField = document.querySelector('.input-field');
+            const messagesContainer = document.querySelector('.messages');
             const messageText = inputField.value.trim();
             if (messageText) {
-                addMessage(messageText, true); // true - это твое сообщение
+                addMessage(messageText, true);
                 inputField.value = '';
-                // Автоматический ответ
-                setTimeout(() => {
-                    addMessage("Привет!", false); // false - это сообщение от собеседника
-                }, 500); // Задержка в 0.5 секунды
             }
         }
 
         function addMessage(text, isMyMessage) {
+            const messagesContainer = document.querySelector('.messages');
             const messageDiv = document.createElement('div');
             messageDiv.classList.add('message', isMyMessage ? 'my-message' : 'their-message');
             messageDiv.textContent = text;
@@ -317,7 +317,6 @@
             messagesContainer.appendChild(messageDiv);
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }
-
     </script>
 </body>
 </html>
