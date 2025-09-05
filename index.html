@@ -7,15 +7,20 @@
     <style>
         body {
             margin: 0;
-            background-color: black;
+            background-color: #121212; /* Темный фон для всего приложения */
             color: white;
-            font-family: sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Более современный шрифт */
             display: flex;
             flex-direction: column;
             height: 100vh;
             overflow: hidden;
             align-items: center;
             justify-content: center;
+        }
+
+        /* Общие стили */
+        input, button {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         /* Общие стили для экранов авторизации */
@@ -26,39 +31,59 @@
             justify-content: center;
             height: 100%;
             width: 100%;
+            background-color: #1e1e1e; /* Более темный фон */
         }
 
-        .auth-screen input {
-            margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 5px;
-            border: none;
-            background-color: #333;
-            color: white;
-            width: 200px;
+        .auth-screen h2 {
+            color: #eee;
+            margin-bottom: 20px;
             text-align: center;
         }
 
+        .auth-screen input {
+            margin-bottom: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            background-color: #333;
+            color: #eee;
+            width: 250px;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .auth-screen input:focus {
+            background-color: #444;
+            outline: none;
+        }
+
         .auth-screen button {
-            padding: 10px 20px;
-            background-color: #58a6ff;
+            padding: 12px 25px;
+            background-color: #64b5f6; /* Приятный синий цвет */
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 1.1em;
+        }
+
+        .auth-screen button:hover {
+            background-color: #42a5f5;
         }
 
         /* Скрываем второй экран авторизации и контент чата по умолчанию */
         #codeScreen, .container, .chat-page {
             display: none;
+
         }
 
-        /* Стили для элементов чата (скрыты до авторизации) */
+        /* Стили для элементов списка чатов */
         .container {
             flex-grow: 1;
             display: flex;
             flex-direction: column;
-            padding: 10px;
+            padding: 20px;
             width: 100%; /* Растягиваем на всю ширину */
         }
 
@@ -74,29 +99,35 @@
             align-items: center;
             cursor: pointer;
             width: 100%; /* Растягиваем на всю ширину */
+            transition: background-color 0.2s ease;
+        }
+
+        .chat-item:hover {
+            background-color: #222;
         }
 
         .avatar {
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
-            background-color: white;
-            color: black;
-
+            background-color: #eee;
+            color: #121212;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            margin-right: 10px;
+            margin-right: 15px;
+            font-size: 1.2em;
+            font-weight: bold;
         }
 
         .verified {
-            color: lightskyblue;
+            color: #81d4fa;
             margin-left: 5px;
         }
 
         .add-chat-button {
-            padding: 12px 20px;
-            background-color: #58a6ff;
+            padding: 14px 28px;
+            background-color: #64b5f6;
             color: white;
             border: none;
             border-radius: 25px;
@@ -105,18 +136,26 @@
             margin-top: auto;
             align-self: center;
             margin-bottom: 20px;
+            transition: background-color 0.3s ease;
+            font-size: 1.1em;
+        }
+
+        .add-chat-button:hover {
+            background-color: #42a5f5;
         }
 
         /* Стили для элементов чата */
         .chat-page {
-            display: flex; /* Изменено для правильного позиционирования */
+            display: flex;
             flex-direction: column;
             width: 100%;
-            height: 100%; /* Занимаем всю высоту */
-            position: fixed; /* Фиксированное позиционирование */
+            height: 100%;
+            position: fixed;
             top: 0;
             left: 0;
             background-color: black;
+            background-size: cover;
+            background-position: center;
         }
 
         .chat-header {
@@ -124,7 +163,8 @@
             align-items: center;
             padding: 15px;
             border-bottom: 1px solid #222;
-            background-color: #111;
+            background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон */
+            backdrop-filter: blur(5px); /* Эффект размытия */
         }
 
         .back-button {
@@ -135,6 +175,11 @@
             cursor: pointer;
             padding: 0;
             margin-right: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .back-button:hover {
+            color: #ddd;
         }
 
         .chat-title {
@@ -162,20 +207,19 @@
             margin-bottom: 8px;
             word-break: break-word;
             position: relative;
-            /* max-width: 75%;  Удалено, чтобы пузырьки подстраивались под текст */
-            display: inline-block; /* Чтобы ширина пузырька соответствовала контенту */
+            display: inline-block;
         }
 
         .my-message {
             background-color: #ff9900;
             color: black;
-            align-self: flex-end; /* Сообщения справа */
+            align-self: flex-end;
         }
 
         .their-message {
             background-color: #333;
             color: white;
-            align-self: flex-start; /* Сообщения слева */
+            align-self: flex-start;
         }
 
         .checkmark {
@@ -190,28 +234,65 @@
             display: flex;
             align-items: center;
             padding: 15px;
-            border-top: 1px solid #222;
-            background-color: #111;
+
+border-top: 1px solid #222;
+            background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон */
+            backdrop-filter: blur(5px); /* Эффект размытия */
         }
 
         .input-field {
             flex-grow: 1;
-            padding: 10px;
+            padding: 12px;
             border: none;
             border-radius: 20px;
             background-color: #333;
             color: white;
             margin-right: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .input-field:focus {
+            background-color: #444;
+            outline: none;
         }
 
         .send-button {
-            padding: 10px 15px;
-            background-color: #58a6ff;
+            padding: 12px 18px;
+            background-color: #64b5f6;
             color: white;
             border: none;
             border-radius: 20px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 1.1em;
         }
+
+        .send-button:hover {
+            background-color: #42a5f5;
+        }
+
+        /* Новые стили для обоев */
+        .set-wallpaper-button {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            padding: 10px 15px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        .wallpaper-input {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1001;
+            display: none; /* Скрываем поле ввода по умолчанию */
+        }
+
     </style>
 </head>
 <body>
@@ -225,25 +306,22 @@
 
     <!-- Экран ввода кода подтверждения -->
     <div class="auth-screen" id="codeScreen">
-        <h2>На ваш номер был отправлен четырехзначный код</h2>
+        <h2>Введите код подтверждения</h2>
         <input type="number" id="code" placeholder="Код подтверждения">
-        <button
-
-onclick="login()">Войти</button>
+        <button onclick="login()">Войти</button>
     </div>
 
-    <!-- Контейнер для всего остального контента (скрыт до авторизации) -->
+    <!-- Контейнер для списка чатов -->
     <div class="container">
         <div class="chat-list">
             <div class="chat-item" onclick="openChat()">
                 <div class="avatar">Я</div> Избранное <span class="verified">✓</span>
             </div>
         </div>
-
         <button class="add-chat-button">Добавить чат</button>
     </div>
 
-    <!-- Chat Page (скрыт до авторизации и открытия чата) -->
+    <!-- Экран чата -->
     <div class="chat-page">
         <div class="chat-header">
             <button class="back-button" onclick="goBack()">
@@ -260,6 +338,12 @@ onclick="login()">Войти</button>
             <input type="text" class="input-field" placeholder="Введите сообщение...">
             <button onclick="sendMessage()" class="send-button">Отправить</button>
         </div>
+
+        <!-- Кнопка установки обоев -->
+        <button class="set-wallpaper-button" onclick="showWallpaperInput()">Установить обои</button>
+
+        <!-- Поле ввода для ссылки на обои -->
+        <input type="text" class="wallpaper-input" id="wallpaperUrl" placeholder="Ссылка на изображение">
     </div>
 
     <script>
@@ -271,7 +355,9 @@ onclick="login()">Войти</button>
         const container = document.querySelector('.container');
         const chatPage = document.querySelector('.chat-page');
 
-        // Скрываем все экраны кроме первого
+        // Скры
+
+ваем все экраны кроме первого
         codeScreen.style.display = 'none';
         container.style.display = 'none';
         chatPage.style.display = 'none';
@@ -293,7 +379,7 @@ onclick="login()">Войти</button>
             }
         }
 
-        // Функции для работы с чатом (как и раньше)
+        // Функции для работы с чатом
         function openChat() {
             container.style.display = 'none';
             chatPage.style.display = 'flex';
@@ -333,8 +419,25 @@ onclick="login()">Войти</button>
 
             messagesContainer.appendChild(messageDiv);
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
 
-}
+        // Функция для установки обоев
+        function showWallpaperInput() {
+            const wallpaperInput = document.querySelector('.wallpaper-input');
+            wallpaperInput.style.display = 'block'; // Показываем поле ввода
+
+            // Добавляем обработчик события на потерю фокуса, чтобы установить обои
+            wallpaperInput.addEventListener('blur', setWallpaper);
+        }
+
+        function setWallpaper() {
+            const wallpaperInput = document.querySelector('.wallpaper-input');
+            const wallpaperUrl = wallpaperInput.value;
+            const chatPage = document.querySelector('.chat-page');
+
+            chatPage.style.backgroundImage = `url('${wallpaperUrl}')`;
+            wallpaperInput.style.display = 'none'; // Скрываем поле ввода после установки
+        }
     </script>
 </body>
 </html>
