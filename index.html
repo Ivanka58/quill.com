@@ -66,23 +66,17 @@
             align-self: flex-start; /* Выравниваем по левому краю */
         }
 
-        /* Инпут */
+        /* Инпут (ВЕРНУЛ КАК БЫЛО) */
         .auth-screen input {
-            margin-bottom: 30px;
-            padding: 15px 20px;
+            margin-bottom: 10px;
 
-            border-radius: 30px;
+            padding: 10px;
+            border-radius: 5px;
             border: none;
-            background-color: var(--input-bg);
-            color: var(--text-primary);
-            width: 80%;
-            max-width: 350px; /* Максимальная ширина */
-            text-align: left;
-            font-size: 1.1em;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            padding-left: 50px; /* Отступ для иконки */
-            position: relative;
-            margin-left: 20px; /* Отступ слева */
+            background-color: #333;
+            color: white;
+            width: 200px;
+            text-align: center;
         }
 
         .auth-screen input::placeholder {
@@ -98,24 +92,14 @@
             color: #94A3B8;
         }
 
-        /* Кнопка */
+        /* Кнопка (ВЕРНУЛ КАК БЫЛО) */
         .auth-screen button {
-            padding: 15px 30px;
-            background-color: var(--button-primary);
-            color: #FFFFFF;
+            padding: 10px 20px;
+            background-color: #58a6ff;
+            color: white;
             border: none;
-            border-radius: 30px;
+            border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
-            font-size: 1.2em;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            width: 80%;
-            max-width: 350px;
-            margin-left: 20px; /* Отступ слева */
-        }
-
-        .auth-screen button:hover {
-            background-color: #2563EB;
         }
         /* Скрываем второй экран авторизации и контент чата по умолчанию */
         #codeScreen, .container, .chat-page {
@@ -124,8 +108,7 @@
 
         /* Вернул стили для codeScreen */
         #codeScreen {
-            background-color: black;
-            color: white;
+             display: none;
         }
 
          /* Вернул стили для container */
@@ -147,6 +130,7 @@
             display: flex;
             align-items: center;
             cursor: pointer;
+              width: 100%;
         }
 
         .avatar {
@@ -212,9 +196,7 @@
             cursor: pointer;
             padding: 0;
             margin-right: 15px;
-            transition: color 0.3s ea
-
-se;
+            transition: color 0.3s ease;
         }
 
         .back-button:hover {
@@ -244,7 +226,9 @@ se;
             padding: 10px 15px;
             border-radius: 15px;
             margin-bottom: 8px;
-            word-break: break-word;
+            word-break: br
+
+eak-word;
             position: relative;
             display: inline-block;
         }
@@ -353,9 +337,7 @@ se;
             <!-- Сообщения будут отображаться здесь -->
         </div>
         <div class="input-area">
-            <input type="text" class="input-field" placeholder="
-
-Введите сообщение...">
+            <input type="text" class="input-field" placeholder="Введите сообщение...">
             <button onclick="sendMessage()" class="send-button">Отправить</button>
         </div>
     </div>
@@ -372,7 +354,9 @@ se;
         // Скрываем все экраны кроме первого
         codeScreen.style.display = 'none';
         container.style.display = 'none';
-        chatPage.style.display = 'none';
+        cha
+
+tPage.style.display = 'none';
 
         // Функция перехода к экрану ввода кода
         function goToCodeScreen() {
