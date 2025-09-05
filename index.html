@@ -15,8 +15,8 @@
 
         body {
             margin: 0;
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
+            background-color: black; /* Вернул черный фон */
+            color: white; /* Вернул белый текст */
             font-family: 'Nunito', sans-serif;
             display: flex;
             flex-direction: column;
@@ -35,17 +35,19 @@
         .auth-screen {
             display: flex;
             flex-direction: column;
-            align-items: center;
+            align-items: flex-start; /* Выравниваем по левому краю */
             justify-content: flex-start; /* Выравниваем по верху */
             height: 100%;
             width: 100%;
             padding: 20px;
+            background-color: var(--bg-primary); /* Светло-голубой фон */
         }
 
         /* Логотип */
         .logo-container {
-            margin-top: 50px; /* Отступ сверху */
-            margin-bottom: 30px;
+            margin-top: 30px; /* Отступ сверху */
+            margin-left: 20px; /* Отступ слева */
+            margin-bottom: 20px;
         }
 
         .logo {
@@ -57,15 +59,18 @@
         .auth-screen h2 {
             color: var(--text-primary);
             margin-bottom: 40px;
-            text-align: center;
-            font-size: 2.5em;
+            margin-left: 20px; /* Отступ слева */
+            text-align: left; /* Выравниваем текст слева */
+            font-size: 2.0em;
             font-weight: bold;
+            align-self: flex-start; /* Выравниваем по левому краю */
         }
 
         /* Инпут */
         .auth-screen input {
             margin-bottom: 30px;
             padding: 15px 20px;
+
             border-radius: 30px;
             border: none;
             background-color: var(--input-bg);
@@ -74,10 +79,10 @@
             max-width: 350px; /* Максимальная ширина */
             text-align: left;
             font-size: 1.1em;
-
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             padding-left: 50px; /* Отступ для иконки */
             position: relative;
+            margin-left: 20px; /* Отступ слева */
         }
 
         .auth-screen input::placeholder {
@@ -106,6 +111,7 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
             width: 80%;
             max-width: 350px;
+            margin-left: 20px; /* Отступ слева */
         }
 
         .auth-screen button:hover {
@@ -116,6 +122,192 @@
             display: none;
         }
 
+        /* Вернул стили для codeScreen */
+        #codeScreen {
+            background-color: black;
+            color: white;
+        }
+
+         /* Вернул стили для container */
+        .container {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+        }
+
+        .chat-list {
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .chat-item {
+            padding: 15px;
+            border-bottom: 1px solid #222;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: white;
+            color: black;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            margin-right: 10px;
+        }
+
+        .verified {
+            color: lightskyblue;
+            margin-left: 5px;
+        }
+
+        .add-chat-button {
+            padding: 12px 20px;
+            background-color: #58a6ff;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            text-align: center;
+            cursor: pointer;
+            margin-top: auto;
+            align-self: center;
+            margin-bottom: 20px;
+        }
+
+        /* Вернул стили для chat-page */
+         .chat-page {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: black;
+            background-image: url('https://postimg.cc/y36b5Vth');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #222;
+            background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон */
+            backdrop-filter: blur(5px); /* Эффект размытия */
+        }
+
+        .back-button {
+            background-color: transparent;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: 0;
+            margin-right: 15px;
+            transition: color 0.3s ea
+
+se;
+        }
+
+        .back-button:hover {
+            color: #ddd;
+        }
+
+        .chat-title {
+            font-weight: bold;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .chat-title .avatar {
+            margin-right: 10px;
+        }
+
+        .messages {
+            flex-grow: 1;
+            padding: 10px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message {
+            padding: 10px 15px;
+            border-radius: 15px;
+            margin-bottom: 8px;
+            word-break: break-word;
+            position: relative;
+            display: inline-block;
+        }
+
+        .my-message {
+            background-color: #ff9900;
+            color: black;
+            align-self: flex-end;
+        }
+
+        .their-message {
+            background-color: #333;
+            color: white;
+            align-self: flex-start;
+        }
+
+        .checkmark {
+            position: absolute;
+            bottom: 2px;
+            right: 5px;
+            font-size: 0.7em;
+            color: #bbb;
+        }
+
+        .input-area {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-top: 1px solid #222;
+            background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон */
+            backdrop-filter: blur(5px); /* Эффект размытия */
+        }
+
+        .input-field {
+            flex-grow: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 20px;
+            background-color: #333;
+            color: white;
+            margin-right: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .input-field:focus {
+            background-color: #444;
+            outline: none;
+        }
+
+        .send-button {
+            padding: 12px 18px;
+            background-color: #58a6ff;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .send-button:hover {
+            background-color: #42a5f5;
+        }
+
     </style>
 </head>
 <body>
@@ -124,7 +316,7 @@
     <div class="auth-screen" id="phoneScreen">
         <div class="logo-container">
             <img src="https://postimg.cc/dD0N4RPD" alt="Quill Logo" class="logo">
-            </div>
+        </div>
         <h2>Добро пожаловать в Quill!</h2>
         <input type="tel" id="phoneNumber" placeholder="Номер телефона">
         <button onclick="goToCodeScreen()">Войти</button>
@@ -132,7 +324,7 @@
 
     <!-- Экран ввода кода подтверждения -->
     <div class="auth-screen" id="codeScreen">
-        <h2>Введите код подтверждения</h2>
+        <h2>На ваш номер был отправлен четырехзначный код</h2>
         <input type="number" id="code" placeholder="Код подтверждения">
         <button onclick="login()">Войти</button>
     </div>
@@ -161,7 +353,9 @@
             <!-- Сообщения будут отображаться здесь -->
         </div>
         <div class="input-area">
-            <input type="text" class="input-field" placeholder="Введите сообщение...">
+            <input type="text" class="input-field" placeholder="
+
+Введите сообщение...">
             <button onclick="sendMessage()" class="send-button">Отправить</button>
         </div>
     </div>
@@ -190,8 +384,7 @@
         function login() {
             const code = document.getElementById('code').value;
             if (code === '1234') {
-
-codeScreen.style.display = 'none';
+                codeScreen.style.display = 'none';
                 container.style.display = 'flex';
             } else {
                 alert('Неверный код!');
