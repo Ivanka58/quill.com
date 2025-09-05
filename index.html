@@ -154,6 +154,7 @@
             top: 0;
             left: 0;
             background-color: black;
+            background-image: url('https://postimg.cc/y36b5Vth'); /*  Установленные обои */
             background-size: cover;
             background-position: center;
         }
@@ -231,11 +232,11 @@
         }
 
         .input-area {
-            display: flex;
+
+display: flex;
             align-items: center;
             padding: 15px;
-
-border-top: 1px solid #222;
+            border-top: 1px solid #222;
             background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон */
             backdrop-filter: blur(5px); /* Эффект размытия */
         }
@@ -269,28 +270,6 @@ border-top: 1px solid #222;
 
         .send-button:hover {
             background-color: #42a5f5;
-        }
-
-        /* Новые стили для обоев */
-        .set-wallpaper-button {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            padding: 10px 15px;
-            background-color: rgba(0, 0, 0, 0.5);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            z-index: 1000;
-        }
-
-        .wallpaper-input {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            z-index: 1001;
-            display: none; /* Скрываем поле ввода по умолчанию */
         }
 
     </style>
@@ -338,12 +317,6 @@ border-top: 1px solid #222;
             <input type="text" class="input-field" placeholder="Введите сообщение...">
             <button onclick="sendMessage()" class="send-button">Отправить</button>
         </div>
-
-        <!-- Кнопка установки обоев -->
-        <button class="set-wallpaper-button" onclick="showWallpaperInput()">Установить обои</button>
-
-        <!-- Поле ввода для ссылки на обои -->
-        <input type="text" class="wallpaper-input" id="wallpaperUrl" placeholder="Ссылка на изображение">
     </div>
 
     <script>
@@ -355,9 +328,7 @@ border-top: 1px solid #222;
         const container = document.querySelector('.container');
         const chatPage = document.querySelector('.chat-page');
 
-        // Скры
-
-ваем все экраны кроме первого
+        // Скрываем все экраны кроме первого
         codeScreen.style.display = 'none';
         container.style.display = 'none';
         chatPage.style.display = 'none';
@@ -381,7 +352,9 @@ border-top: 1px solid #222;
 
         // Функции для работы с чатом
         function openChat() {
-            container.style.display = 'none';
+            c
+
+ontainer.style.display = 'none';
             chatPage.style.display = 'flex';
         }
 
@@ -419,24 +392,6 @@ border-top: 1px solid #222;
 
             messagesContainer.appendChild(messageDiv);
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        }
-
-        // Функция для установки обоев
-        function showWallpaperInput() {
-            const wallpaperInput = document.querySelector('.wallpaper-input');
-            wallpaperInput.style.display = 'block'; // Показываем поле ввода
-
-            // Добавляем обработчик события на потерю фокуса, чтобы установить обои
-            wallpaperInput.addEventListener('blur', setWallpaper);
-        }
-
-        function setWallpaper() {
-            const wallpaperInput = document.querySelector('.wallpaper-input');
-            const wallpaperUrl = wallpaperInput.value;
-            const chatPage = document.querySelector('.chat-page');
-
-            chatPage.style.backgroundImage = `url('${wallpaperUrl}')`;
-            wallpaperInput.style.display = 'none'; // Скрываем поле ввода после установки
         }
     </script>
 </body>
