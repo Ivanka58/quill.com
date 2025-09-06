@@ -18,9 +18,9 @@
 
         body {
             margin: 0;
-            background-color: #E0F2FE; /* Светло-голубой фон */
-            color: var(--text-dark); /* Текст темный */
-            font-family: 'Nunito', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: 'Nunito', sans-serif; /* Приятный шрифт */
             display: flex;
             flex-direction: column;
             height: 100vh;
@@ -42,21 +42,12 @@
             justify-content: center;
             height: 100%;
             width: 100%;
+            background-color: var(--bg-dark); /* Темный фон */
             padding: 20px;
-            background-color: #E0F2FE; /* Светло-голубой фон */
         }
-
-        .auth-screen h1 {
-            color: var(--text-dark); /* Темный цвет текста */
-            margin-bottom: 30px;
-            text-align: center;
-            font-size: 3em; /* Увеличиваем размер заголовка */
-            font-weight: bold; /* Делаем жирным */
-        }
-
 
         .auth-screen h2 {
-            color: var(--text-dark); /* Темный цвет текста */
+            color: var(--text-light);
             margin-bottom: 30px;
             text-align: center;
             font-size: 2em;
@@ -65,43 +56,35 @@
         .auth-screen input {
             margin-bottom: 20px;
             padding: 15px;
-            border-radius: 30px; /* Закругленные края */
-
-            border: 1px solid #CBD5E1; /* Светлая граница */
-            background-color: #FFFFFF; /* Белый фон для инпутов */
-            color: var(--text-dark); /* Темный цвет текста */
+            border-radius: 10px;
+            border: none;
+            background-color: #334155; /* Темный фон для инпутов */
+            color: var(--text-light);
             width: 300px;
-            text-align: left; /* Текст слева */
+            text-align: center;
             transition: background-color 0.3s ease;
-            padding-left: 30px; /* Отступ для иконки */
-        }
-
-        .auth-screen input::placeholder {
-            color: #94A3B8; /* Светло-серый плейсхолдер */
         }
 
         .auth-screen input:focus {
-            background-color: #FFFFFF;
+            background-color: #475569;
             outline: none;
-            border-color: var(--primary); /* Цвет рамки при фокусе */
-            box-shadow: 0 0 5px rgba(99, 102, 241, 0.5); /* Тень при фокусе */
         }
 
         .auth-screen button {
+
             padding: 15px 30px;
-            background-color: #60A5FA; /* Голубая кнопка */
+            background-color: var(--primary); /* Фиолетовая кнопка */
             color: var(--text-light);
             border: none;
-            border-radius: 30px;
+            border-radius: 10px;
             cursor: pointer;
             transition: background-color 0.3s ease;
             font-size: 1.2em;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            width: 300px; /* Ширина кнопки как у инпута */
         }
 
         .auth-screen button:hover {
-            background-color: #3B82F6;
+            background-color: #5A67D8;
         }
 
         /* Скрываем второй экран авторизации и контент чата по умолчанию */
@@ -109,12 +92,208 @@
             display: none;
         }
 
-        /* Иконка в инпуте */
-        .auth-screen input[type="tel"] {
-            background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%2394A3B8"%3E%3Cpath d="M6.62 10.79c1.44 2.57 3.91 5.05 6.48 6.48l2.2-2.2c.28-.28.36-.67.25-1.02a1.13 1.13 0 0 0-.29-.51l-2.71-2.71a1.13 1.13 0 0 0-.51-.29c-.35-.11-.74-.03-1.02.24l-2.2 2.2c-.44.44-.44 1.16 0 1.61zM19 12v7a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-3c0-.55-.45-1-1-1H7a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h3c.55 0 1 .45 1 1v1h5V6a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v6z"/%3E%3C/svg%3E');
-            background-repeat: no-repeat;
-            background-position: 10px center;
-            background-size: 16px;
+        /* Стили для элементов списка чатов */
+        .container {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            width: 100%;
+        }
+
+        .chat-list {
+            flex-grow: 1;
+            overflow-y: auto;
+            border-radius: 15px;
+            background-color: #263238; /* Темный фон для списка чатов */
+            padding: 10px;
+        }
+
+        .chat-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid #334155;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            border-radius: 10px;
+        }
+
+        .chat-item:last-child {
+            border-bottom: none;
+        }
+
+        .chat-item:hover {
+            background-color: #334155;
+        }
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--accent); /* Оранжевый аватар */
+            color: var(--text-dark);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+
+        .verified {
+            color: var(--secondary); /* Зеленая галочка */
+            margin-left: 5px;
+        }
+
+        .add-chat-button {
+            padding: 16px 32px;
+            background-color: var(--secondary); /* Зеленая кнопка */
+            color: var(--text-dark);
+            border: none;
+            border-radius: 30px;
+            text-align: center;
+            cursor: pointer;
+            margin-top: 20px;
+            align-self: center;
+            transition: background-color 0.3s ease;
+            font-size: 1.2em;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .add-chat-button:hover {
+            background-color: #34D399;
+        }
+
+        /* Стили для элементов чата */
+        .chat-page {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: black;
+            background-image: url('https://postimg.cc/y36b5Vth');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #334155;
+            background-color: rgba(0, 0, 0, 0.7); /* Более прозрачный фон */
+            backdrop-filter: blur(10px); /* Усиленный эффект размытия */
+        }
+
+        .back-button {
+            background-color: transparent;
+            border: none;
+            color: var(--text-light);
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: 0;
+            margin-right: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .back-button:hover {
+            color: #CBD5E1;
+        }
+
+        .chat-title {
+            font-weight: bold;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+
+font-size: 1.3em;
+        }
+
+        .chat-title .avatar {
+            margin-right: 10px;
+        }
+
+        .messages {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message {
+            padding: 12px 18px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+            word-break: break-word;
+            position: relative;
+            display: inline-block;
+            max-width: 80%; /* Ограничение ширины сообщения */
+        }
+
+        .my-message {
+            background-color: var(--primary); /* Фиолетовый цвет для моих сообщений */
+            color: var(--text-light);
+            align-self: flex-end;
+        }
+
+        .their-message {
+            background-color: #334155; /* Темный фон для сообщений собеседника */
+            color: var(--text-light);
+            align-self: flex-start;
+        }
+
+        .checkmark {
+            position: absolute;
+            bottom: 3px;
+            right: 8px;
+            font-size: 0.8em;
+            color: #94A3B8;
+        }
+
+        .input-area {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-top: 1px solid #334155;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+        }
+
+        .input-field {
+            flex-grow: 1;
+            padding: 12px 18px;
+            border: none;
+            border-radius: 30px;
+            background-color: #334155;
+            color: var(--text-light);
+            margin-right: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .input-field:focus {
+            background-color: #475569;
+            outline: none;
+        }
+
+        .send-button {
+            padding: 12px 20px;
+            background-color: var(--primary);
+            color: var(--text-light);
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 1.1em;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .send-button:hover {
+            background-color: #5A67D8;
         }
     </style>
 </head>
@@ -122,7 +301,6 @@
 
     <!-- Экран ввода номера телефона -->
     <div class="auth-screen" id="phoneScreen">
-        <h1>Quill</h1>
         <h2>Добро пожаловать в Quill!</h2>
         <input type="tel" id="phoneNumber" placeholder="Номер телефона">
         <button onclick="goToCodeScreen()">Войти</button>
@@ -160,9 +338,9 @@
         </div>
         <div class="input-area">
             <input type="text" class="input-field" placeholder="Введите сообщение...">
-            <button onclick="sendM
+            <button onclick="sendMessage(
 
-essage()" class="send-button">Отправить</button>
+)" class="send-button">Отправить</button>
         </div>
     </div>
 
