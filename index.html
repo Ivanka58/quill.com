@@ -397,9 +397,9 @@ font-size: 1.3em;
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
     <script>
         // Import the functions you need from the SDKs you need
-        import { initializeApp } from "firebase/app";
-        import { getAnalytics } from "firebase/analytics";
-        import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
+        // import { initializeApp } from "firebase/app";  // Удалено
+        // import { getAnalytics } from "firebase/analytics"; // Удалено
+        // import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth"; // Удалено
 
         // Your web app's Firebase configuration
         // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -414,8 +414,8 @@ font-size: 1.3em;
         };
 
         // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
+        const app = firebase.initializeApp(firebaseConfig); // Изменено
+        const analytics = firebase.analytics(app); // Изменено
 
         // Получаем ссылку на элемент ввода номера телефона и код подтверждения
         const phoneNumberInput = document.getElementById('phoneNumber');
@@ -425,7 +425,7 @@ font-size: 1.3em;
         const loginButton = document.querySelector('#codeScreen button');
 
         // Получаем экземпляр аутентификации Firebase
-        const auth = getAuth();
+        const auth = firebase.auth(); // Изменено
 
         // Функция, вызываемая при нажатии кнопки "Войти" на экране ввода номера
         function goToCodeScreen() {
@@ -437,7 +437,7 @@ font-size: 1.3em;
             }
 
             // 1. Настройка reCAPTCHA (если не настроена в HTML)
-            window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', { // 'recaptcha-container' - ID элемента, где будет отображаться reCAPTCHA
+            window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(auth, 'recaptcha-container', { // 'recaptcha-container' - ID элемента, где будет отображаться reCAPTCHA
                 'size': 'invisible', // or 'normal' or 'compact'
                 'callback': (response) => {
                     // reCAPTCHA solved.
@@ -451,7 +451,7 @@ font-size: 1.3em;
 
             // 2. Отправка запроса на отправку SMS
             const appVerifier = window.recaptchaVerifier;
-            signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+            firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)  // Изменено
                 .then((confirmationResult) => {
                     // SMS sent. Ask user to type the code from the message, then sign in:
                     window.confirmationResult = confirmationResult;
@@ -470,13 +470,13 @@ font-size: 1.3em;
 
             if (!code) {
                 alert("Пожалуйста, введите код подтверждения.");
-                return;
+
+return;
             }
 
             // 3. Подтверждение кода и вход пользователя
             window.confirmationResult.confirm(code)
-
-.then((result) => {
+                .then((result) => {
                     // User signed in successfully.
                     const user = result.user;
                     console.log("Пользователь успешно вошел:", user);
@@ -492,69 +492,68 @@ font-size: 1.3em;
 
         // Перехватываем событие клика на кнопку "Войти" на экране ввода кода
         loginButton.onclick = login;
-
-        // Экраны авторизации
-        const phoneScreen = document.getElementById('phoneScreen');
-        const codeScreen = document.getElementById('codeScreen');
-
-
-        // Основной контент
-        const container = document.querySelector('.container');
-        const chatPage = document.querySelector('.chat-page');
+          // Экраны авторизации
+          const phoneScreen = document.getElementById('phoneScreen');
+          const codeScreen = document.getElementById('codeScreen');
 
 
-        // Скрываем все экраны кроме первого
-        codeScreen.style.display = 'none';
-        container.style.display = 'none';
-        chatPage.style.display = 'none';
+          // Основной контент
+          const container = document.querySelector('.container');
+          const chatPage = document.querySelector('.chat-page');
 
 
-        // Функции для работы с чатом
-        function openChat() {
-            container.style.display = 'none';
-            chatPage.style.display = 'flex';
-        }
+          // Скрываем все экраны кроме первого
+          codeScreen.style.display = 'none';
+          container.style.display = 'none';
+          chatPage.style.display = 'none';
 
 
-        function goBack() {
-            chatPage.style.display = 'none';
-            container.style.display = 'flex';
-        }
+          // Функции для работы с чатом
+          function openChat() {
+              container.style.display = 'none';
+              chatPage.style.display = 'flex';
+          }
 
 
-        function sendMessage() {
-            const inputField = document.querySelector('.input-field');
-            const messagesContainer = document.querySelector('.messages');
-            const messageText = inputField.value.trim();
-            if (messageText) {
-                addMessage(messageText, true);
-                inputField.value = '';
-                // Автоматический ответ
-                setTimeout(() => {
-                    addMessage("Привет!", false);
-                }, 500);
-            }
-        }
+          function goBack() {
+              chatPage.style.display = 'none';
+              container.style.display = 'flex';
+          }
 
 
-        function addMessage(text, isMyMessage) {
-            const messagesContainer = document.querySelector('.messages');
-            const messageDiv = document.createElement('div');
-            messageDiv.classList.add('message', isMyMessage ? 'my-message' : 'their-message');
-            messageDiv.textContent = text;
+          function sendMessage() {
+              const inputField = document.querySelector('.input-field');
+              const messagesContainer = document.querySelector('.messages');
+              const messageText = inputField.value.trim();
+              if (messageText) {
+                  addMessage(messageText, true);
+                  inputField.value = '';
+                  // Автоматический ответ
+                  setTimeout(() => {
+                      addMessage("Привет!", false);
+                  }, 500);
+              }
+          }
 
 
-            if (isMyMessage) {
-                const checkmarkSpan = document.createElement('span');
-                checkmarkSpan.classList.add('checkmark');
-                checkmarkSpan.innerHTML = '✓✓';
-                messageDiv.appendChild(checkmarkSpan);
-            }
+          function addMessage(text, isMyMessage) {
+              const messagesContainer = document.querySelector('.messages');
+              const messageDiv = document.createElement('div');
+              messageDiv.classList.add('message', isMyMessage ? 'my-message' : 'their-message');
+              messageDiv.textContent = text;
 
 
-            messagesContainer.appendChild(messageDiv);
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        }
+              if (isMyMessage) {
+                  const checkmarkSpan = document.createElement('span');
+                  checkmarkSpan.classList.add('checkmark');
+                  checkmarkSpan.innerHTML = '✓✓';
+                  messageDiv.appendChild(checkmarkSpan);
+              }
+
+
+              messagesContainer.appendChild(messageDiv);
+              messagesContainer.scrollTop = messagesContainer.scrollHeight;
+          }
     </script>
 </body>
 </html>
