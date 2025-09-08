@@ -16,6 +16,7 @@
             --accent: #F59E0B;         /* Акцент (оранжевый) */
         }
 
+
         body {
             margin: 0;
             background-color: var(--bg-dark);
@@ -29,10 +30,12 @@
             justify-content: center;
         }
 
+
         /* Общие стили */
         input, button {
             font-family: 'Nunito', sans-serif;
         }
+
 
         /* Общие стили для экранов авторизации */
         .auth-screen {
@@ -46,12 +49,14 @@
             padding: 20px;
         }
 
+
         .auth-screen h2 {
             color: var(--text-light);
             margin-bottom: 30px;
             text-align: center;
             font-size: 2em;
         }
+
 
         .auth-screen input {
             margin-bottom: 20px;
@@ -65,12 +70,16 @@
             transition: background-color 0.3s ease;
         }
 
+
         .auth-screen input:focus {
             background-color: #475569;
             outline: none;
         }
 
+
         .auth-screen button {
+
+
 
             padding: 15px 30px;
             background-color: var(--primary); /* Фиолетовая кнопка */
@@ -83,14 +92,17 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         }
 
+
         .auth-screen button:hover {
             background-color: #5A67D8;
         }
+
 
         /* Скрываем второй экран авторизации и контент чата по умолчанию */
         #codeScreen, .container, .chat-page {
             display: none;
         }
+
 
         /* Стили для элементов списка чатов */
         .container {
@@ -101,6 +113,7 @@
             width: 100%;
         }
 
+
         .chat-list {
             flex-grow: 1;
             overflow-y: auto;
@@ -108,6 +121,7 @@
             background-color: #263238; /* Темный фон для списка чатов */
             padding: 10px;
         }
+
 
         .chat-item {
             padding: 15px 20px;
@@ -119,13 +133,16 @@
             border-radius: 10px;
         }
 
+
         .chat-item:last-child {
             border-bottom: none;
         }
 
+
         .chat-item:hover {
             background-color: #334155;
         }
+
 
         .avatar {
             width: 50px;
@@ -141,10 +158,12 @@
             font-weight: bold;
         }
 
+
         .verified {
             color: var(--secondary); /* Зеленая галочка */
             margin-left: 5px;
         }
+
 
         .add-chat-button {
             padding: 16px 32px;
@@ -161,9 +180,11 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         }
 
+
         .add-chat-button:hover {
             background-color: #34D399;
         }
+
 
         /* Стили для элементов чата */
         .chat-page {
@@ -180,6 +201,7 @@
             background-position: center;
         }
 
+
         .chat-header {
             display: flex;
             align-items: center;
@@ -188,6 +210,7 @@
             background-color: rgba(0, 0, 0, 0.7); /* Более прозрачный фон */
             backdrop-filter: blur(10px); /* Усиленный эффект размытия */
         }
+
 
         .back-button {
             background-color: transparent;
@@ -200,22 +223,29 @@
             transition: color 0.3s ease;
         }
 
+
         .back-button:hover {
             color: #CBD5E1;
         }
+
 
         .chat-title {
             font-weight: bold;
             flex-grow: 1;
             display: flex;
-            align-items: center;
+            align-items
+
+: center;
+
 
 font-size: 1.3em;
         }
 
+
         .chat-title .avatar {
             margin-right: 10px;
         }
+
 
         .messages {
             flex-grow: 1;
@@ -224,6 +254,7 @@ font-size: 1.3em;
             display: flex;
             flex-direction: column;
         }
+
 
         .message {
             padding: 12px 18px;
@@ -235,17 +266,20 @@ font-size: 1.3em;
             max-width: 80%; /* Ограничение ширины сообщения */
         }
 
+
         .my-message {
             background-color: var(--primary); /* Фиолетовый цвет для моих сообщений */
             color: var(--text-light);
             align-self: flex-end;
         }
 
+
         .their-message {
             background-color: #334155; /* Темный фон для сообщений собеседника */
             color: var(--text-light);
             align-self: flex-start;
         }
+
 
         .checkmark {
             position: absolute;
@@ -255,6 +289,7 @@ font-size: 1.3em;
             color: #94A3B8;
         }
 
+
         .input-area {
             display: flex;
             align-items: center;
@@ -263,6 +298,7 @@ font-size: 1.3em;
             background-color: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(10px);
         }
+
 
         .input-field {
             flex-grow: 1;
@@ -275,10 +311,12 @@ font-size: 1.3em;
             transition: background-color 0.3s ease;
         }
 
+
         .input-field:focus {
             background-color: #475569;
             outline: none;
         }
+
 
         .send-button {
             padding: 12px 20px;
@@ -292,12 +330,14 @@ font-size: 1.3em;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
+
         .send-button:hover {
             background-color: #5A67D8;
         }
     </style>
 </head>
 <body>
+
 
     <!-- Экран ввода номера телефона -->
     <div class="auth-screen" id="phoneScreen">
@@ -306,12 +346,14 @@ font-size: 1.3em;
         <button onclick="goToCodeScreen()">Войти</button>
     </div>
 
+
     <!-- Экран ввода кода подтверждения -->
     <div class="auth-screen" id="codeScreen">
         <h2>Введите код подтверждения</h2>
         <input type="number" id="code" placeholder="Код подтверждения">
         <button onclick="login()">Войти</button>
     </div>
+
 
     <!-- Контейнер для списка чатов -->
     <div class="container">
@@ -322,6 +364,7 @@ font-size: 1.3em;
         </div>
         <button class="add-chat-button">Добавить чат</button>
     </div>
+
 
     <!-- Экран чата -->
     <div class="chat-page">
@@ -338,31 +381,64 @@ font-size: 1.3em;
         </div>
         <div class="input-area">
             <input type="text" class="input-field" placeholder="Введите сообщение...">
-            <button onclick="sendMessage(
+            <button
+
+onclick="sendMessage(
+
 
 )" class="send-button">Отправить</button>
         </div>
     </div>
 
+
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js"></script>
+
     <script>
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "firebase/app";
+        import { getAnalytics } from "firebase/analytics";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyD8_hvqOIIsygb6KR_58X01ud_x8MckQjM",
+          authDomain: "quill-messenger-b310a.firebaseapp.com",
+          projectId: "quill-messenger-b310a",
+          storageBucket: "quill-messenger-b310a.firebasestorage.app",
+          messagingSenderId: "829302749949",
+          appId: "1:829302749949:web:fe21549597ff6c15871c94",
+          measurementId: "G-975HC1PGVJ"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+
         // Экраны авторизации
         const phoneScreen = document.getElementById('phoneScreen');
         const codeScreen = document.getElementById('codeScreen');
 
+
         // Основной контент
         const container = document.querySelector('.container');
         const chatPage = document.querySelector('.chat-page');
+
 
         // Скрываем все экраны кроме первого
         codeScreen.style.display = 'none';
         container.style.display = 'none';
         chatPage.style.display = 'none';
 
+
         // Функция перехода к экрану ввода кода
         function goToCodeScreen() {
             phoneScreen.style.display = 'none';
             codeScreen.style.display = 'flex';
         }
+
 
         // Функция авторизации (проверка кода)
         function login() {
@@ -375,16 +451,19 @@ font-size: 1.3em;
             }
         }
 
+
         // Функции для работы с чатом
         function openChat() {
             container.style.display = 'none';
             chatPage.style.display = 'flex';
         }
 
+
         function goBack() {
             chatPage.style.display = 'none';
             container.style.display = 'flex';
         }
+
 
         function sendMessage() {
             const inputField = document.querySelector('.input-field');
@@ -400,11 +479,13 @@ font-size: 1.3em;
             }
         }
 
+
         function addMessage(text, isMyMessage) {
             const messagesContainer = document.querySelector('.messages');
             const messageDiv = document.createElement('div');
             messageDiv.classList.add('message', isMyMessage ? 'my-message' : 'their-message');
             messageDiv.textContent = text;
+
 
             if (isMyMessage) {
                 const checkmarkSpan = document.createElement('span');
@@ -413,8 +494,12 @@ font-size: 1.3em;
                 messageDiv.appendChild(checkmarkSpan);
             }
 
+
             messagesContainer.appendChild(messageDiv);
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            messagesContainer\
+
+ 
+.scrollTop = messagesContainer.scrollHeight;
         }
     </script>
 </body>
