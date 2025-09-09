@@ -72,6 +72,7 @@
 
         .auth-screen button {
 
+ChatGPT4 | Midjourney, [09.09.2025 17:59]
             padding: 15px 30px;
             background-color: var(--primary); /* Фиолетовая кнопка */
             color: var(--text-light);
@@ -212,6 +213,7 @@
             font-size: 1.3em;
         }
 
+ChatGPT4 | Midjourney, [09.09.2025 17:59]
 .chat-title .avatar {
             margin-right: 10px;
         }
@@ -302,8 +304,6 @@
     <div class="auth-screen" id="phoneScreen">
         <h2>Добро пожаловать в Quill!</h2>
         <input type="tel" id="phoneNumber" placeholder="Номер телефона">
-        <!-- Убираем div reCAPTCHA -->
-        <!-- <div id="recaptcha-container"></div> -->
         <button onclick="goToCodeScreen()">Войти</button>
     </div>
 
@@ -338,17 +338,28 @@
             <!-- Сообщения будут отображаться здесь -->
         </div>
         <div class="input-area">
-            <input type="text" class="input-field" pla
+            <input type="text" class="input-field" placeholder="Введите сообщение...">
+            <button onclick="sendMessage()" class="send-button">Отпр
 
-ceholder="Введите сообщение...">
-            <button onclick="sendMessage()" class="send-button">Отправить</button>
+ChatGPT4 | Midjourney, [09.09.2025 17:59]
+авить</button>
         </div>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+
     <script>
+        // Объявляем все переменные в самом начале
+        const phoneNumberInput = document.getElementById('phoneNumber');
+        const codeInput = document.getElementById('code');
+        const phoneScreen = document.getElementById('phoneScreen');
+        const codeScreen = document.getElementById('codeScreen');
+        const container = document.querySelector('.container');
+        const chatPage = document.querySelector('.chat-page');
+        const confirmCodeButton = document.getElementById('confirmCodeButton');
+
         // Your web app's Firebase configuration
         const firebaseConfig = {
           apiKey: "AIzaSyD8_hvqOIIsygb6KR_58X01ud_x8MckQjM",
@@ -361,30 +372,9 @@ ceholder="Введите сообщение...">
         };
 
         // Initialize Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        const analytics = firebase.analytics(app);
+        firebase.initializeApp(firebaseConfig); // Инициализация Firebase теперь выше
+
         const auth = firebase.auth();
-
-        // Получаем ссылки на элементы
-        const phoneNumberInput = document.getElementById('phoneNumber');
-        const codeInput = document.getElementById('code');
-        const phoneScreen = document.getElementById('phoneScreen');
-        const codeScreen = document.getElementById('codeScreen');
-        const container = document.querySelector('.container');
-        const chatPage = document.querySelector('.chat-page');
-        const confirmCodeButton = document.getElementById('confirmCodeButton');
-        // const recaptchaContainer = document.getElementById('recaptcha-container'); // Убираем ссылку на контейнер reCAPTCHA
-
-        // **Убираем инициализацию reCAPTCHA**
-        // window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(recaptchaContainer, {
-        //     'size': 'invisible',
-        //     'callback': (response) => {
-        //         // reCAPTCHA solved.
-        //     },
-        //     'expired-callback': () => {
-        //         // Response expired.
-        //     }
-        // }, auth);
 
         // Скрываем все экраны кроме первого
         codeScreen.style.display = 'none';
@@ -400,11 +390,7 @@ ceholder="Введите сообщение...">
                 return;
             }
 
-            // **Убираем appVerifier**
-            // const appVerifier = window.recaptchaVerifier;
-
-            // **Убираем appVerifier из signInWithPhoneNumber**
-            firebase.auth().signInWithPhoneNumber(phoneNumber, null) // Заменяем appVerifier на null
+            firebase.auth().signInWithPhoneNumber(phoneNumber, null)
                 .then((confirmationResult) => {
                     window.confirmationResult = confirmationResult;
                     phoneScreen.style.display = 'none';
@@ -429,9 +415,7 @@ ceholder="Введите сообщение...">
                 .then((result) => {
                     const user = result.user;
                     console.log("Пользователь успешно вошел:", user);
-                    codeScree
-
-n.style.display = 'none';
+                    codeScreen.style.display = 'none';
                     container.style.display = 'flex';
                 })
                 .catch((error) => {
@@ -456,7 +440,10 @@ n.style.display = 'none';
 
         function sendMessage() {
             const inputField = document.querySelector('.input-field');
-            const messagesContainer = document.querySelector('.messages');
+            const messagesContainer = document.query
+
+ChatGPT4 | Midjourney, [09.09.2025 17:59]
+Selector('.messages');
             const messageText = inputField.value.trim();
             if (messageText) {
                 addMessage(messageText, true);
