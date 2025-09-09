@@ -71,7 +71,6 @@
         }
 
         .auth-screen button {
-
             padding: 15px 30px;
             background-color: var(--primary); /* Фиолетовая кнопка */
             color: var(--text-light);
@@ -212,7 +211,7 @@
             font-size: 1.3em;
         }
 
-.chat-title .avatar {
+        .chat-title .avatar {
             margin-right: 10px;
         }
 
@@ -368,6 +367,7 @@
 
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig); // Инициализация Firebase теперь выше
+        console.log(firebase); // Добавили для проверки
 
         const auth = firebase.auth();
 
