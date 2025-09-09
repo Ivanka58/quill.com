@@ -186,7 +186,7 @@
             padding: 15px;
             border-bottom: 1px solid #334155;
             background-color: rgba(0, 0, 0, 0.7); /* Более прозрачный фон */
-            backdrop-filter: blur(10px); /* Усиленный эффект размытия */
+            backdrop-filter: blur(10px);
         }
 
         .back-button {
@@ -209,11 +209,10 @@
             flex-grow: 1;
             display: flex;
             align-items: center;
-
-font-size: 1.3em;
+            font-size: 1.3em;
         }
 
-        .chat-title .avatar {
+.chat-title .avatar {
             margin-right: 10px;
         }
 
@@ -303,7 +302,8 @@ font-size: 1.3em;
     <div class="auth-screen" id="phoneScreen">
         <h2>Добро пожаловать в Quill!</h2>
         <input type="tel" id="phoneNumber" placeholder="Номер телефона">
-        <div id="recaptcha-container"></div>
+        <!-- Убираем div reCAPTCHA -->
+        <!-- <div id="recaptcha-container"></div> -->
         <button onclick="goToCodeScreen()">Войти</button>
     </div>
 
@@ -338,9 +338,9 @@ font-size: 1.3em;
             <!-- Сообщения будут отображаться здесь -->
         </div>
         <div class="input-area">
-            <input type="text" class="input-field" placeholder="Введите сообщение
+            <input type="text" class="input-field" pla
 
-...">
+ceholder="Введите сообщение...">
             <button onclick="sendMessage()" class="send-button">Отправить</button>
         </div>
     </div>
@@ -373,18 +373,18 @@ font-size: 1.3em;
         const container = document.querySelector('.container');
         const chatPage = document.querySelector('.chat-page');
         const confirmCodeButton = document.getElementById('confirmCodeButton');
-        const recaptchaContainer = document.getElementById('recaptcha-container');
+        // const recaptchaContainer = document.getElementById('recaptcha-container'); // Убираем ссылку на контейнер reCAPTCHA
 
-        // RecaptchaVerifier должен быть инициализирован один раз
-        window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(recaptchaContainer, {
-            'size': 'invisible',
-            'callback': (response) => {
-                // reCAPTCHA solved.
-            },
-            'expired-callback': () => {
-                // Response expired.
-            }
-        }, auth); // Передаем auth сюда
+        // **Убираем инициализацию reCAPTCHA**
+        // window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(recaptchaContainer, {
+        //     'size': 'invisible',
+        //     'callback': (response) => {
+        //         // reCAPTCHA solved.
+        //     },
+        //     'expired-callback': () => {
+        //         // Response expired.
+        //     }
+        // }, auth);
 
         // Скрываем все экраны кроме первого
         codeScreen.style.display = 'none';
@@ -400,8 +400,11 @@ font-size: 1.3em;
                 return;
             }
 
-            const appVerifier = window.recaptchaVerifier;
-            firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
+            // **Убираем appVerifier**
+            // const appVerifier = window.recaptchaVerifier;
+
+            // **Убираем appVerifier из signInWithPhoneNumber**
+            firebase.auth().signInWithPhoneNumber(phoneNumber, null) // Заменяем appVerifier на null
                 .then((confirmationResult) => {
                     window.confirmationResult = confirmationResult;
                     phoneScreen.style.display = 'none';
@@ -426,13 +429,13 @@ font-size: 1.3em;
                 .then((result) => {
                     const user = result.user;
                     console.log("Пользователь успешно вошел:", user);
-                    codeScreen.style.display = 'none';
+                    codeScree
+
+n.style.display = 'none';
                     container.style.display = 'flex';
                 })
                 .catch((error) => {
-                    console.error("Ошибка входа:",
-
-error);
+                    console.error("Ошибка входа:", error);
                     alert("Неверный код подтверждения.");
                 });
         }
