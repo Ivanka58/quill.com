@@ -575,6 +575,7 @@
 
 
         // Скрываем все экраны кроме первого
+        phoneScreen.style.display = 'flex';// Показываем экран с номером телефона
         codeScreen.style.display = 'none';
         container.style.display = 'none';
         chatPage.style.display = 'none';
@@ -642,11 +643,10 @@
         }
 
 
-        function sendMessage() {
-            const inputField = document.querySelector('.input\
+        function
 
- 
--field');
+sendMessage() {
+            const inputField = document.querySelector('.input-field');
             const messagesContainer = document.querySelector('.messages');
             const messageText = inputField.value.trim();
             if (messageText) {
